@@ -7,9 +7,27 @@ const userSchema = new mongoose.Schema({
         type:String,
         unique:true
     },
-    password:String,
+    password:{
+        type:String,
+        required:[true,'Please provide password'],
+        minlength:8
+    },
+   
     confirmPassword:String,
-    image:String
+    image:String,
+    createdAt:{
+        type:Date,
+        immutable:true,
+        default:()=> {
+            return Date.now();
+        }
+    },
+    updatedAt:{
+        type:Date,
+        default:()=> {
+            return Date.now();
+        }
+    }
 })
 
 module.exports = mongoose.model("User",userSchema);
