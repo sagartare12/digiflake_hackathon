@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import loginSignupImage from '../assets/login-animation.gif';
 import {BiShow , BiHide} from 'react-icons/bi'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
+import {toast} from 'react-hot-toast'
+
 
 const Login = () => {
-
+  const navigate  = useNavigate();
     const [showPassword,setShowPassword]= useState(false);
     
     const [userData,setUserData]=useState({
@@ -12,7 +14,7 @@ const Login = () => {
         password:"",
     })
 
-    console.log(userData);
+    
     const handleShowPassword=()=>{
         setShowPassword(prev => !prev)
     }
@@ -26,14 +28,26 @@ const Login = () => {
         })
     }
 
-    const handleSubmit=(e)=>{
+    const handleSubmit=async(e)=>{
       e.preventDefault();
 
       const {email,password} =userData;
-
       if( !email || !password) return  alert("Please enter required fields")
+      const fetchdata=await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users/login`,{
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      body:JSON.stringify(userData)
+    })
+
+    const data= await fetchdata.json();
+      console.log(data)
       
-      return alert("Successfull");
+     if(data.status==='Success'){
+        toast.success('Successfully login.')
+        navigate('/')
+     }else toast.error(data.message)
     }
 
   return (

@@ -3,6 +3,8 @@ import loginSignupImage from '../assets/login-animation.gif';
 import {BiShow , BiHide} from 'react-icons/bi'
 import {Link , useNavigate} from 'react-router-dom'
 import { imageToBase64 } from '../utility/imageToBase64';
+import {toast} from 'react-hot-toast'
+
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -66,15 +68,21 @@ const Signup = () => {
 
           const data = await fetchData.json();
           console.log(data)
-
-          alert("Successfull");
+          if(data.status=== 'Success'){
+            toast.success('Your account has been created successfully');
+            navigate("/login")
+            }else toast.error(data.message)
+          
+          // alert(`${data.status}`=== 'Success' ? 'Your account has been created successfully':`${data.message}`);
+         
+          // {`${data.status}`=== 'Success' ? 'Your account has been created successfully':`${data.message}`}
           // navigate("/login")
         }else{
-          alert("Password and confirm password must be equal");
+          toast.error("Password and confirm password must be equal");
         }
 
       } else{
-       alert("Please enter required fields")
+       toast.error("Please enter required fields")
       }
         
     }
