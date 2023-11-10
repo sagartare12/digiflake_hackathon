@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Header from './components/Header';
 import {Router,Route, Outlet} from 'react-router-dom'
@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   return (
+    
     <div className="App">
       <Toaster />
       <>
@@ -16,6 +17,7 @@ function App() {
       </main>
       </>
     </div>
+    
   );
 }
 

@@ -3,10 +3,13 @@ import loginSignupImage from '../assets/login-animation.gif';
 import {BiShow , BiHide} from 'react-icons/bi'
 import {Link,useNavigate} from 'react-router-dom'
 import {toast} from 'react-hot-toast'
-
+import { useDispatch,useSelector } from 'react-redux';
+import { loginReducer } from '../store/slices/UserSlice';
 
 const Login = () => {
   const navigate  = useNavigate();
+
+  const dispatch = useDispatch();
     const [showPassword,setShowPassword]= useState(false);
     
     const [userData,setUserData]=useState({
@@ -14,7 +17,9 @@ const Login = () => {
         password:"",
     })
 
-    
+    const userReducerData = useSelector(state=>state);
+
+
     const handleShowPassword=()=>{
         setShowPassword(prev => !prev)
     }
@@ -24,7 +29,7 @@ const Login = () => {
             return {
                  ...prev,
                  [name]:value
-                 }
+                 };
         })
     }
 
@@ -41,13 +46,14 @@ const Login = () => {
       body:JSON.stringify(userData)
     })
 
-    const data= await fetchdata.json();
-      console.log(data)
+    const dataRes= await fetchdata.json();
+      // console.log(dataRes)
       
-     if(data.status==='Success'){
-        toast.success('Successfully login.')
+     if(dataRes.status==='Success'){
+        dispatch(loginReducer(dataRes));
+        toast.success(`${userReducerData.users.user.firstName} successfully login.`)
         navigate('/')
-     }else toast.error(data.message)
+     }else toast.error(dataRes.message)
     }
 
   return (
