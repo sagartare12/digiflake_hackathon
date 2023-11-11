@@ -29,7 +29,13 @@ exports.signUp = catchAsync(async(req,res,next)=>{
       confirmPassword:hashedPass,
       image,
     });
-    const token = signToken(newUser._id)
+    const token = signToken(newUser._id);
+    res.cookie('jwt',token, {
+    expires:new Date(
+        Date.now()+60*1000
+    ),
+    httpOnly:true
+   })
     res.status(200).json({
         status:'Success',
         token,
@@ -53,6 +59,13 @@ exports.logIn=catchAsync(async (req,res,next)=>{
 
     }
    const token =signToken(user._id);
+
+   res.cookie('jwt',token, {
+    expires:new Date(
+        Date.now()+60*1000
+    ),
+    httpOnly:true
+   })
    res.status(200).json({
     status:'Success',
     token,
@@ -60,3 +73,16 @@ exports.logIn=catchAsync(async (req,res,next)=>{
     
 })
 })
+
+exports.logout =(req,res)=>{
+    res.cookie('jwt','loggedout',{
+        expires:new Date(
+            Date.now()+1*1000
+        ),
+        httpOnly:true
+    })
+
+    res.status(200).json({
+        status:'Success',
+    })
+}
