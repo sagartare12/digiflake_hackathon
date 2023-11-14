@@ -52,7 +52,7 @@ const Signup = () => {
       console.log(process.env.REACT_APP_SERVER_DOMAIN)
     const handleSubmit=async(e)=>{
       e.preventDefault();
-
+ 
       const {firstName,email,password,confirmPassword} =userData;
 
       if(firstName && email && password && confirmPassword){
