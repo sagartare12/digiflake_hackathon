@@ -12,7 +12,7 @@ const Header = () => {
   const navigate  = useNavigate();
   const [shadowMenu,setShadowMenu] = useState(false);
   const userReducerData = useSelector(state=>state.users.user);
-  console.log(userReducerData)
+
   const handleShowMenu=()=>{
     setShadowMenu(prev => !prev);
   }
@@ -59,9 +59,9 @@ const Header = () => {
             </div>
             {shadowMenu && (
               <div className=" absolute right-2 bg-white py-2 px-3 shadow drop-shadow-md flex flex-col">
-                <Link to={"/newproduct"} className="whitespace-nowrap cursor-pointer hover:font-medium">New product</Link>
+                {userReducerData.email===process.env.REACT_APP_ADMIN_EMAIL && <Link to={"/newproduct"} className="whitespace-nowrap cursor-pointer hover:font-medium">New product</Link>}
                 {!userReducerData.image ? <Link to={"/login"} className="whitespace-nowrap cursor-pointer hover:font-medium">Login</Link> :
-                <p className="whitespace-nowrap cursor-pointer  hover:font-medium" onClick={handleLogout}>Logout</p> }
+                <p className="whitespace-nowrap cursor-pointer  hover:font-medium" onClick={handleLogout}>Logout<span>({userReducerData.firstName})</span></p> }
               </div>
             )}
           </div>
