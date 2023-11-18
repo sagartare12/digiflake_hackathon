@@ -7,11 +7,11 @@ const productSlice = createSlice({
     },
     reducers:{
         addProductReducer(state,action){
-            state.push(action.payload)
+            state.product.push(action.payload)
         },
         allProductReducer(state,action){
             console.log(action.payload)
-            state.product={...action.payload}
+            state.product=action.payload
             console.log(state)
         }
     }

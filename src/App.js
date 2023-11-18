@@ -13,30 +13,12 @@ function App() {
 
   const allProductsReducerRes = useSelector(state=>state.products)
      console.log(allProductsReducerRes)
-  // useEffect(()=>{
-  //   (async()=>{
-
-  //     const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/products`,{
-  //       method:"GET"
-  //     })
-  //     const resData= await fetchData.json();
-  //   })
-  // },[])
   useEffect(()=>{
     (async()=>{
-      // You can await here
-      // const response = await MyAPI.getData(someId);
-      // ...
       const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/products`);
       const fetchRes=await fetchData.json();
-
-      console.log(fetchRes.allProducts);
-      dispatch(allProductReducer(fetchRes))
-    })()
-
-    
-
-
+      dispatch(allProductReducer(fetchRes.allProducts))
+    })() 
   },[])
  
 
