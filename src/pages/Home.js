@@ -21,7 +21,7 @@ const Home = () => {
   }
 
   const nextProduct=()=>{
-    
+    slideProductRef.current.scrollLeftt +=200;
   }
 
   const rightScroll=()=>{
