@@ -3,7 +3,8 @@ import HomeCard from '../components/HomeCard';
 import { useSelector } from 'react-redux';
 import CartFeature from '../components/CartFeature';
 import { GrPrevious ,GrNext } from "react-icons/gr";
-
+import { ImSpoonKnife } from "react-icons/im";
+import FilterProduct from '../components/FilterProduct';
 
 const Home = () => {
 
@@ -27,6 +28,9 @@ const Home = () => {
   const rightScroll=()=>{
     slideProductRef.current.scrollLeftt -=200;
   }
+
+  // const categoryList =[...new Set(allProductsReducer.map((el)=>el.category))]
+  // console.log(categoryList)
   //  console.log(Object.keys(allProductsReducer).slice(0,4))
 // console.log(allProductsReducer)
   return (
@@ -90,7 +94,7 @@ const Home = () => {
         </h2>
         <div className="ml-auto flex gap-2">
         <button onClick={()=>prevProduct()} className=" bg-slate-300 text-sm p-1"><GrPrevious /></button>
-        <button onClick={()=>rightScroll()} className="bg-slate-300 text-sm px-1 py-[-20px]"><GrNext /></button>
+        <button onClick={()=>nextProduct()} className="bg-slate-300 text-sm px-1 py-[-20px]"><GrNext /></button>
         </div>
         </div>
         <div className="flex items-center ">
@@ -117,6 +121,17 @@ const Home = () => {
   
           </div>
         </div>
+      </div>
+      <div className="">
+      <h2 className="font-bold text-2xl mb-4 text-slate-800">
+          Your Products
+      </h2>
+      <div className="flex gap-4 ">
+
+        <FilterProduct category={`veg`}/>
+        <FilterProduct />
+        <FilterProduct />
+      </div>
       </div>
     </div>
   );

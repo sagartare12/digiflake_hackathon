@@ -41,12 +41,15 @@ const Header = () => {
           </div>
         </Link>
         <div className="flex items-center gap-3 md:gap-7">
-          <nav className="flex gap-4 md:gap-6 text-base md:text-lg">
+          <div className="hidden sm:block">
+          <nav className="flex gap-4 md:gap-6 text-base md:text-lg ">
+
             <Link to={"/"}>Home</Link>
             <Link to={"/menu"}>Menu</Link>
             <Link to={"/about"}>About</Link>
             <Link to={"/contact"}>Contact</Link>
           </nav>
+          </div>
           <div className="text-2xl text-slate-600 relative">
             <FaShoppingCart /> 
             <div className="absolute -top-2 -right-2 text-white bg-red-500 h-4 w-4 rounded-full m-0 p-0  text-sm text-center ">
@@ -58,12 +61,19 @@ const Header = () => {
             {userReducerData.image ? <img src={userReducerData.image} alt="" className="w-10 h-10 rounded-full overflow-hidden"/> :<FaCircleUser /> }
             </div>
             {shadowMenu && (
-              <div className=" absolute right-2 bg-white py-2 px-3 shadow drop-shadow-md flex flex-col">
-                {userReducerData.email===process.env.REACT_APP_ADMIN_EMAIL && <Link to={"/newproduct"} className="whitespace-nowrap cursor-pointer hover:font-medium">New product</Link>}
-                {!userReducerData.image ? <Link to={"/login"} className="whitespace-nowrap cursor-pointer hover:font-medium">Login</Link> :
-                <p className="whitespace-nowrap cursor-pointer  hover:font-medium" onClick={handleLogout}>Logout<span>({userReducerData.firstName})</span></p> }
+              <div className=" absolute right-2 bg-white py-2 px-3 shadow drop-shadow-md flex flex-col text-center min-w-[128px] ">
+                {userReducerData.email===process.env.REACT_APP_ADMIN_EMAIL && <Link to={"/newproduct"} className=" hover:bg-slate-300 whitespace-nowrap cursor-pointer hover:font-medium">New product</Link>}
+                {!userReducerData.image ? <Link to={"/login"} className="hover:bg-slate-300 whitespace-nowrap cursor-pointer hover:font-medium">Login</Link> :
+                <p className="whitespace-nowrap cursor-pointer hover:bg-slate-300  hover:font-medium" onClick={handleLogout}>Logout<span>({userReducerData.firstName})</span></p> }
+                  <nav className="flex flex-col  md:hidden">
+            <Link to={"/"} className="hover:bg-slate-300 text-black">Home</Link>
+            <Link to={"/menu"} className="hover:bg-slate-300 text-black">Menu</Link>
+            <Link to={"/about"} className="hover:bg-slate-300 text-black">About</Link>
+            <Link to={"/contact"} className="hover:bg-slate-300 text-black">Contact</Link>
+          </nav>
               </div>
             )}
+           
           </div>
         </div>
       </div>
