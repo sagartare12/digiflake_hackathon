@@ -1,10 +1,11 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState ,useEffect } from 'react'
 import HomeCard from '../components/HomeCard';
 import { useSelector } from 'react-redux';
 import CartFeature from '../components/CartFeature';
 import { GrPrevious ,GrNext } from "react-icons/gr";
 import { ImSpoonKnife } from "react-icons/im";
 import FilterProduct from '../components/FilterProduct';
+import AllProducts from '../components/AllProducts';
 
 const Home = () => {
 
@@ -16,6 +17,7 @@ const Home = () => {
 
   const isLoadingHomeCard = new Array(4).fill(null)
   const isLoadingVegCard = new Array(5).fill(null)
+  const isLoadingAllProducts = new Array(5).fill(null)
   const slideProductRef = useRef();
   const prevProduct=()=>{
     slideProductRef.current.scrollLeft +=200;
@@ -29,8 +31,27 @@ const Home = () => {
     slideProductRef.current.scrollLeftt -=200;
   }
 
-  // const categoryList =[...new Set(allProductsReducer.map((el)=>el.category))]
-  // console.log(categoryList)
+  const categoryList =[...new Set(allProductsReducer.map((el)=>el.category))]
+ 
+  //filter product by given category
+
+  const [filterBy , setFilterBy]=useState("")
+  const [defaultFilter,setDefaultFilter]=useState([])
+console.log("defult filter"+defaultFilter)
+  const handleFilterProduct =(category)=>{
+    setFilterBy(category)
+  }
+  useEffect(()=>{
+    const filter =filterBy ? allProductsReducer.filter((el)=>el.category.toLowerCase() === filterBy.toLowerCase()) : allProductsReducer
+    console.log(filter)
+    setDefaultFilter(()=>{
+      return [
+        ...filter
+      ]
+    })
+
+  },[filterBy])
+
   //  console.log(Object.keys(allProductsReducer).slice(0,4))
 // console.log(allProductsReducer)
   return (
@@ -74,6 +95,7 @@ const Home = () => {
                 return (
                   <HomeCard
                     key={e._id}
+                    id={e._id}
                     image={e.productImage}
                     name={e.name}
                     price={e.price}
@@ -109,6 +131,8 @@ const Home = () => {
                     name={el.name}
                     price={el.price}
                     category={el.category}
+                    id={el._id}
+                    
                   />
                 );
               }) :
@@ -122,17 +146,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="">
-      <h2 className="font-bold text-2xl mb-4 text-slate-800">
-          Your Products
-      </h2>
-      <div className="flex gap-4 ">
-
-        <FilterProduct category={`veg`}/>
-        <FilterProduct />
-        <FilterProduct />
-      </div>
-      </div>
+      <AllProducts heading="Your Products"/>
     </div>
   );
 }

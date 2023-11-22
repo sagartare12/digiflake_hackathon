@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import NewProduct from './pages/NewProduct';
 import Signup from './pages/Signup';
 import store from './store/store'
+import Cart from './pages/Cart';
 
 
 
@@ -23,12 +24,14 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} >
         <Route index element={<Home />} />
-        <Route path="/menu" element={<Menu />} />
+        {/* <Route path="/menu" element={<Menu />} /> */}
+         <Route path="/menu/:productid" element={<Menu />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login /> }/>
         <Route path="/newproduct" element={<NewProduct /> }/>
         <Route path="/signup" element={<Signup /> }/>
+        <Route path="/cart" element={<Cart /> }/>
       </Route>
     </Routes>
   </BrowserRouter>

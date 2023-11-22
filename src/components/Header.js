@@ -51,7 +51,9 @@ const Header = () => {
           </nav>
           </div>
           <div className="text-2xl text-slate-600 relative">
+            <Link to="/cart">
             <FaShoppingCart /> 
+            </Link>
             <div className="absolute -top-2 -right-2 text-white bg-red-500 h-4 w-4 rounded-full m-0 p-0  text-sm text-center ">
               0
             </div>
