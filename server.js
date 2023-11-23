@@ -53,6 +53,14 @@ mongoose.connect(DB_URL,{
 // };
 
 //PORt configuration
+
+
+
+
+
+
+
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT,()=>{
     console.log(`Server is running on ${PORT}`)
@@ -61,9 +69,9 @@ app.listen(PORT,()=>{
 process.on('unhandledRejection',(err)=>{
     console.log(err.name,err.message);
     console.log('Unhandle rejection , server getting down..!');
-    server.close(()=>{
-        process.exit(1);
-    })
+    // server.close(()=>{
+    //     process.exit(1);
+    // })
 })
 
 // app.get("/",(req,res)=>{
