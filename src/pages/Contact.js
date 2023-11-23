@@ -16,14 +16,15 @@ const Contact = () => {
 
   return (
     <div>
-      <button onClick={adduser} >Add user</button>
+      {/* <button onClick={adduser} >Add user</button>
       {
         userList.map((e)=>{
           return(
             <li>{e.name}</li>
           )
         })
-      }
+      } */}
+      hi
     </div>
   )
 }

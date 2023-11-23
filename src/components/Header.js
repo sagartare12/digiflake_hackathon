@@ -10,6 +10,8 @@ import { logoutReducer } from '../store/slices/UserSlice';
 const Header = () => {
   const dispatch = useDispatch();
   const navigate  = useNavigate();
+  const cartItemNumber= useSelector((state)=>state.products.cartItem)
+  console.log(cartItemNumber)
   const [shadowMenu,setShadowMenu] = useState(false);
   const userReducerData = useSelector(state=>state.users.user);
 
@@ -55,7 +57,7 @@ const Header = () => {
             <FaShoppingCart /> 
             </Link>
             <div className="absolute -top-2 -right-2 text-white bg-red-500 h-4 w-4 rounded-full m-0 p-0  text-sm text-center ">
-              0
+              {cartItemNumber.length}
             </div>
           </div>
           <div className=" text-slate-600" onClick={handleShowMenu}>

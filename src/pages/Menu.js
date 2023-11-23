@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import CartFeature from '../components/CartFeature'
 import AllProducts from '../components/AllProducts'
-
+import { addCartItems } from '../store/slices/ProductSlice'
 
 const Menu = () => {
   const {productid} = useParams()
+  const dispatch= useDispatch();
 console.log(productid)
 const productsReducer = useSelector((state)=>state.products.product)
 console.log(productsReducer)
@@ -15,6 +16,18 @@ const productById=productsReducer.filter((el)=>el._id === productid)[0]
 const similarProducts = productsReducer.filter((el)=>el.category === productById.category)
 console.log("similar products " +similarProducts)
 console.log(productById)
+
+//
+  const handleAddCartProduct=()=>{
+    dispatch(addCartItems({
+      _id:productById._id,
+      name:productById.name,
+      image:productById.productImage,
+      category:productById.category,
+      price:productById.price
+    }))
+    
+  }
   return (
     <div className="p-2 md:p-4">
       <div className="w-full max-w-4xl bg-white m-auto md:flex text-2xl">
@@ -30,7 +43,7 @@ console.log(productById)
               <p className="text-left font-bold"><span className='text-red-500 font-md text-lg md:text-2xl'>₹ </span><spna>{productById.price}</spna></p>
               <div className="flex gap-2 max-w-[250px]">
                  <button className="bg-yellow-500 rounded-sm  hover:bg-yellow-600 py-1 text-xl w-full my-2">Buy</button>
-                 <button className="bg-yellow-500 rounded-sm hover:bg-yellow-600 py-1 text-xl w-full my-2">Add Cart</button>
+                 <button className="bg-yellow-500 rounded-sm hover:bg-yellow-600 py-1 text-xl w-full my-2" onClick={handleAddCartProduct}>Add Cart</button>
               </div>
               <div className="">
                 <p className="text-slate-400 font-medium text-lg md:text-xl">Description : </p>

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import toast from "react-hot-toast";
 
 const productSlice = createSlice({
     name:'product',
@@ -16,11 +17,23 @@ const productSlice = createSlice({
             console.log(state)
         },
         addCartItems(state,action){
-            console.log(action.payload)
             const total = action.payload.price;
             state.cartItem= [...state.cartItem,{...action.payload,qty:1,total:total}]
+            console.log(state.cartItem)
         },
-        deleteCartItems(state,action){
+        deleteCartItems:(state,action)=>{
+            console.log(action.payload)
+
+            const index= state.cartItem.findIndex((el)=>el._id === action.payload)
+            console.log(index)
+
+            state.cartItem.splice(index,1)
+                toast.error("Item deleted")           
+        },
+        inacreaseQty(state,action){
+
+        },
+        decreaseQty(state,action){
 
         }
     }
@@ -28,4 +41,4 @@ const productSlice = createSlice({
 
 export default productSlice.reducer;
 
-export const {addProductReducer,allProductReducer,addCartItems,deleteCartItems} = productSlice.actions
+export const {addProductReducer,allProductReducer,addCartItems,deleteCartItems,inacreaseQty,decreaseQty} = productSlice.actions
