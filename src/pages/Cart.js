@@ -11,9 +11,9 @@ const Cart = () => {
   return (
     <div className="p-2 md:p-4">
       <h2 className="text-lg md:text-xl font-bold text-slate-600">Your Cart Items</h2>
-      <div className="my-4  gap-2 flex flex-col md:flex-row">
+      <div className="my-4  gap-4 flex flex-col md:flex-row  w-full justify-center">
         {/* display cart items */}
-        <div className="w-full max-w-2xl rounded mx-auto ">
+        <div className="w-full max-w-2xl rounded  ">
             {
                 cartProduct[0] ? cartProduct.map((el,index)=>{
                     return (
@@ -34,12 +34,10 @@ const Cart = () => {
                     )
                 })
             }
+            
         </div>
-        {/* display total cart items */}
-        <div className="">
-         
-        </div>
-            <Payment />
+      
+        <Payment />
       </div>
     </div>
   )

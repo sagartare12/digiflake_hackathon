@@ -38,7 +38,7 @@ const Header = () => {
       {/* desktop */}
       <div className="flex items-center h-full justify-between">
         <Link to={"/"}>
-          <div className="h-14">
+          <div className="h-10 md:h-14">
             <img src={logo} alt="" className="h-full" />
           </div>
         </Link>

@@ -17,24 +17,30 @@ const productSlice = createSlice({
             console.log(state)
         },
         addCartItems(state,action){
+            const isItemPresent= state.cartItem.findIndex((el)=>el._id === action.payload._id);
             const total = action.payload.price;
-            state.cartItem= [...state.cartItem,{...action.payload,qty:1,total:total}]
-            console.log(state.cartItem)
+            if(isItemPresent<0) state.cartItem= [...state.cartItem,{...action.payload,qty:1,total:total}]        
         },
         deleteCartItems:(state,action)=>{
-            console.log(action.payload)
-
             const index= state.cartItem.findIndex((el)=>el._id === action.payload)
-            console.log(index)
-
             state.cartItem.splice(index,1)
                 toast.error("Item deleted")           
         },
         inacreaseQty(state,action){
-
+            const index= state.cartItem.findIndex((el)=>el._id === action.payload);
+            let qty=state.cartItem[index].qty;
+            state.cartItem[index].qty=++qty;
+            let total =state.cartItem[index].price
+            state.cartItem[index].total=total*qty;
         },
         decreaseQty(state,action){
-
+            const index= state.cartItem.findIndex((el)=>el._id === action.payload);
+            let qty=state.cartItem[index].qty;
+            if(qty>0) {
+                state.cartItem[index].qty=--qty;
+                let total =state.cartItem[index].total
+                state.cartItem[index].total=total-state.cartItem[index].price;
+                }
         }
     }
 })

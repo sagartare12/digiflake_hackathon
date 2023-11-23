@@ -2,7 +2,7 @@ import React from 'react'
 import { RiInformationLine } from "react-icons/ri";
 const Payment = () => {
   return (
-    <div className="h-full max-h-full  w-full max-w-sm bg-white">
+    <div className="h-full max-h-full  w-full max-w-sm bg-white mt-1">
     <div className="p-7">
   <p className='font-bold mb-4'>TOTAL</p>
 <hr className='border-t-1 mb-2 border-slate-500'/>
