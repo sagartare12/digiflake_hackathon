@@ -9,11 +9,11 @@ const app=require('./app')
 
 //middlewares
 app.use(cors(
-    {
-        origin:["https://mern-restaurant-app.vercel.app/"],
-        methods:["POST","GET"],
-        credentials:true
-    }
+    // {
+    //     origin:["https://mern-restaurant-app.vercel.app/"],
+    //     methods:["POST","GET"],
+    //     credentials:true
+    // }
 ));
 // app.use(express.json({limit:"10mb"}));
 
