@@ -19,7 +19,12 @@ const productSlice = createSlice({
         addCartItems(state,action){
             const isItemPresent= state.cartItem.findIndex((el)=>el._id === action.payload._id);
             const total = action.payload.price;
-            if(isItemPresent<0) state.cartItem= [...state.cartItem,{...action.payload,qty:1,total:total}]        
+            if(isItemPresent<0){ 
+                state.cartItem= [...state.cartItem,{...action.payload,qty:1,total:total}]  
+                toast.success("Item added successfully") 
+            }else{
+                toast.success("Item present in your cart..") 
+                }      
         },
         deleteCartItems:(state,action)=>{
             const index= state.cartItem.findIndex((el)=>el._id === action.payload)

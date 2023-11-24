@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 const HomeCard=({name,image,category,price,isLoading,id})=>{
     console.log(name);
     return (
-        <div className="bg-white shadow-md p-2 min-w-[150px]">
+        <div className="bg-white shadow-md p-2 min-w-[150px] max-h-[280px]">
             {name ?
                 <div>
                     <Link to={`/menu/${id}`} onClick={()=>window.scrollTo({top:"0",behavior:"smooth"})}>
-                     <div className="w-40 min-h-[160px]">
+                     <div className="w-40 min-h-[140px] max-h-[150px]">
                         <img src={image} alt="" className="h-full w-full"/>
                      </div>
                      <h3 className="font-semibold text-slate-600 text-center capitalize text-lg">{name}</h3>

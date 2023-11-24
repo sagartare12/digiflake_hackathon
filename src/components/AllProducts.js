@@ -6,13 +6,15 @@ const AllProducts = ({heading}) => {
     const allProductsReducer = useSelector(state=>state.products.product);
     const isLoadingAllProducts = new Array(5).fill(null)
 
-
     const categoryList =[...new Set(allProductsReducer.map((el)=>el.category))]
+    categoryList[categoryList.length]="All";
+console.log(categoryList)
     const [filterBy , setFilterBy]=useState("")
     const [defaultFilter,setDefaultFilter]=useState([])
   console.log("defult filter"+defaultFilter)
     const handleFilterProduct =(category)=>{
-      setFilterBy(category)
+      if(category !== "All")setFilterBy(category)
+      else setFilterBy("")
     }
     useEffect(()=>{
       const filter =filterBy ? allProductsReducer.filter((el)=>el.category.toLowerCase() === filterBy.toLowerCase()) : allProductsReducer
@@ -32,7 +34,14 @@ const AllProducts = ({heading}) => {
     <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
       {
         categoryList[0] && categoryList.map((el,index)=>{
-          return <FilterProduct key={index} category={el} onClick={()=>handleFilterProduct(el)}/>
+          return (
+            <FilterProduct
+              key={index}
+              category={el}
+              onClick={() => handleFilterProduct(el)}
+              isActive={el.toLowerCase()=== filterBy.toLowerCase()}
+            />
+          );
         })
       }
       

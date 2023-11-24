@@ -120,7 +120,7 @@ console.log("defult filter"+defaultFilter)
         </div>
         </div>
         <div className="flex items-center ">
-          <div className="flex   gap-5  overflow-scroll scrollbar-none scroll-smooth transition-all" ref={slideProductRef} >
+          <div className="flex   gap-3  overflow-scroll scrollbar-none scroll-smooth transition-all" ref={slideProductRef} >
          
             {vegetableProductList[0] ?
               vegetableProductList.map((el) => {

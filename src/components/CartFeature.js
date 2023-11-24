@@ -18,11 +18,11 @@ const CartFeature = ({name,image,category,price,isLoading,id}) => {
   return (
 
    
-    <div className="w-full min-w-[260px] max-w-[200px] bg-white h-30 min-h-[260px] cursor-pointer hover:shadow-lg drop-shadow py-5 px-4">
+    <div className="w-full min-w-[200px] max-w-[250px] bg-white h-30 min-h-[260px] cursor-pointer hover:shadow-lg drop-shadow py-5 px-4">
         {name ?
             <>
             <Link to={`/menu/${id}`} onClick={()=>window.scrollTo({top:"0",behavior:"smooth"})}>
-    <div className="h-28 w-full flex flex-col justify-center ">
+    <div className="h-28 w-full mx-auto max-w-[120px] flex flex-col justify-center ">
         <img src={image} alt="" className="h-full " />
      </div>
       <h3 className="text-center font-semibold text-slate-600  capitalize text-lg mt-4">{name}</h3>

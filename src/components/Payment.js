@@ -1,6 +1,6 @@
 import React from 'react'
 import { RiInformationLine } from "react-icons/ri";
-const Payment = () => {
+const Payment = ({subTotal}) => {
   return (
     <div className="h-full max-h-full  w-full max-w-sm bg-white mt-1">
     <div className="p-7">
@@ -8,7 +8,7 @@ const Payment = () => {
 <hr className='border-t-1 mb-2 border-slate-500'/>
 <div className="flex justify-between mb-2">
   <p className='font-bold'>Sub-total</p>
-  <p className="text-left font-bold text-slate-500 text-sm md:text-base"><span className=' font-md '>₹ </span><span>100</span></p>
+  <p className="text-left font-bold text-slate-500 text-sm md:text-base"><span className=' font-md '>₹ </span><span>{subTotal}</span></p>
 </div>
 <label for="selectBox" className="flex justify-between">
   <p className='font-bold'>Delivery</p>
@@ -18,7 +18,7 @@ const Payment = () => {
 <select id="selectBox" class="ml-0 font-medium text-slate-600 w-full border-b-[1px] border-slate-500  focus:outline-none">
   <option value="option1" selected>Standard Delivery (Free)</option>
   <option value="option2">Cash On Delivery</option>
-  <option value="option3">Option 3</option>
+  <option value="option3">Card Payment</option>
 </select>
 </div>
 <div className=" my-4">

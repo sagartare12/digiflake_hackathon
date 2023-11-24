@@ -7,7 +7,9 @@ import Payment from '../components/Payment';
 const Cart = () => {
     const cartProduct= useSelector((state)=>state.products.cartItem)
     // console.log("cart product" + cartProduct[0].name)
-    const isLoadingCartProduct  = new Array(5).fill(null)
+    const isLoadingCartProduct  = new Array(2).fill(null)
+    const totalPrice = cartProduct.reduce((acc,curr)=>acc+parseInt(curr.total),0);
+    console.log(totalPrice)
   return (
     <div className="p-2 md:p-4">
       <h2 className="text-lg md:text-xl font-bold text-slate-600">Your Cart Items</h2>
@@ -37,7 +39,7 @@ const Cart = () => {
             
         </div>
       
-        <Payment />
+        <Payment subTotal={totalPrice}/>
       </div>
     </div>
   )
