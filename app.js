@@ -1,11 +1,19 @@
 const express = require('express');
 const app=express()
+const cookieParser = require("cookie-parser");
 const userRouter = require('./routes/user.routes.js');
 const productRouter = require('./routes/product.routes')
 const AppError = require('./utils/appError')
 const globalErrorHandler = require('./controllers/error.controller')
 const cors = require("cors")
-app.use(cors());
+
+
+
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true, 
+}));
+
 app.use(express.json({limit:"10mb"}));
 
 
@@ -17,6 +25,9 @@ app.use('/api/v1/products',productRouter)
 //     console.log(req.body);
 // })
 //unhandled routes
+
+app.use(cookieParser())
+
 app.all('*',(req,res,next)=>{
     // const err= new Error(`Cant't find ${req.originalUrl} on this server!`)
     // err.status='fail';

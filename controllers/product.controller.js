@@ -24,9 +24,10 @@ exports.createProduct=catchAsync(async(req,res,next)=>{
 
 
 exports.getAllProducts=catchAsync(async(req,res,next)=>{
-  console.log('ji')
+  
 const allProducts =await Product.find();
 console.log(allProducts)
+
 res.status(200).json({
   status:"Success",
   allProducts
