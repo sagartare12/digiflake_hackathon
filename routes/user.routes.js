@@ -8,7 +8,7 @@ router.post('/signup',authController.signUp);
 
 router.post('/login',authController.logIn);
 router.get('/logout',authController.logout)
-router.get('/',authController.getAllUsers)
+router.get('/',authController.protect,authController.getAllUsers)
 
 
 

@@ -1,3 +1,4 @@
+const { promisify} = require('util');
 const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
 const catchAsync = require('../utils/catchAsync')
@@ -96,10 +97,8 @@ exports.logout =(req,res)=>{
 }
 
 exports.getAllUsers=catchAsync(async(req,res,next)=>{
-    console.log(req.headers.cookie)
+    console.log("req.user"+req.user)
     const allUsers =await User.find();
-    console.log(allUsers)
-    
     res.status(200).json({
       status:"Success",
       allUsers
@@ -108,33 +107,30 @@ exports.getAllUsers=catchAsync(async(req,res,next)=>{
 
     exports.protect = catchAsync(async (req, res, next) => {
         // 1) Getting token and check of it's there
-        console.log(req)
-        let token;
-        if (
-          req.headers.authorization &&
-          req.headers.authorization.startsWith('Bearer')
-        ) {
-          token = req.headers.authorization.split(' ')[1];
+       let token;
+        if(req.headers.cookie && 
+            req.headers.cookie.split("=")[0] === "jwt"){
+            token = req.headers.cookie.split("=")[1]
         }
-        console.log(token)
+    
+    
         // 2) Check if user not log in
-    //     if (!token) {
-    //       return next(
-    //         new AppError('You are not logged in! Please log in to get access.', 401)
-    //       );
+        if (!token) {
+          return next(
+            new AppError('You are not logged in! Please log in to get access.', 401)
+          );
       
-    //   }
-    //   const decode = await promisify(jwt.verify)(token , process.env.JWT_SECRET)
-    //   console.log(decode);
+      }
+      const decode = await promisify(jwt.verify)(token , process.env.JWT_SECRET)
       
-          // 3) Check that the user still exist
-      
-        //  const freshUser =  await User.findById(decode.id);
-        //  if(!freshUser){
-        //      return next (
-        //          new AppError('The user belonging to this id is no longer exist!',401)
-        //      )
-        //  }
+          // 3) Check that the user still exist     
+         const loggedInUser =  await User.findById(decode.id);
+        
+         if(!loggedInUser){
+             return next (
+                 new AppError('The user belonging to this id is no longer exist!',401)
+             )
+         }
       
          // 4) If user change the password
     //    if(freshUser.changedPasswordAfter(decode.iat)){
@@ -142,6 +138,6 @@ exports.getAllUsers=catchAsync(async(req,res,next)=>{
     //        new AppError('User recently changed password ! Please log in again',401)
     //      )
     //    }
-    //    req.user = freshUser;
-    //     next();
+       req.user = loggedInUser;
+        next();
       })
