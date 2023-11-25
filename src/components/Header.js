@@ -20,7 +20,8 @@ const Header = () => {
   }
   const handleLogout=async()=>{
     const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users/logout`,{
-      method:"GET"
+      method:"GET",
+      credentials: 'include', 
     });
 
     const dataRes = await fetchData.json();

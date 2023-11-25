@@ -43,11 +43,12 @@ const Login = () => {
       headers:{
         'content-type':'application/json'
       },
+      credentials: 'include', 
       body:JSON.stringify(userData)
     })
 
     const dataRes= await fetchdata.json();
-      // console.log(dataRes)
+  
       
      if(dataRes.status==='Success'){
         dispatch(loginReducer(dataRes));

@@ -1,6 +1,7 @@
 import React from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import { addUser } from '../store/slices/UserSlice';
+import Users from './Users';
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const Contact = () => {
           )
         })
       } */}
-      hi
+      <Users />
     </div>
   )
 }
