@@ -20,6 +20,11 @@ function App() {
       dispatch(allProductReducer(fetchRes.allProducts))
     })() 
   },[])
+
+
+  
+
+
  
 
   return (

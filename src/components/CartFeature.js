@@ -2,17 +2,40 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { addCartItems } from '../store/slices/ProductSlice'
 import { useDispatch } from 'react-redux'
+import {toast} from 'react-hot-toast'
+import { addCartReducer } from '../store/slices/CartSlice'
+
 
 const CartFeature = ({name,image,category,price,isLoading,id}) => {
   const dispatch=useDispatch()
-  const handleAddCartProduct=()=>{
-    dispatch(addCartItems({
-      _id:id,
-      name:name,
-      image:image,
-      category:category,
-      price:price
-    }))
+  const handleAddCartProduct=async()=>{
+
+    // old code
+    // dispatch(addCartItems({
+    //   _id:id,
+    //   name:name,
+    //   image:image,
+    //   category:category,
+    //   price:price
+    // }))
+
+    // new code
+    const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users/cart/${id}`,{
+      method:"POST",
+      headers:{
+        'content-type':'application/json',
+        
+      },
+    credentials:'include', 
+    
+    })
+    const dataRes= await fetchData.json();
+    console.log(dataRes)
+    if(dataRes.status==='Success'){
+      dispatch(addCartReducer(dataRes.updatedCart));
+      toast.success(dataRes.message)
+      
+   }else toast.error(dataRes.message)
    
   }
   return (

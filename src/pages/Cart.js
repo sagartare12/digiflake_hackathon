@@ -5,7 +5,7 @@ import { RiInformationLine } from "react-icons/ri";
 import Payment from '../components/Payment';
 
 const Cart = () => {
-    const cartProduct= useSelector((state)=>state.products.cartItem)
+    const cartProduct= useSelector((state)=>state.carts.cartItems)
     // console.log("cart product" + cartProduct[0].name)
     const isLoadingCartProduct  = new Array(2).fill(null)
     const totalPrice = cartProduct.reduce((acc,curr)=>acc+parseInt(curr.total),0);
@@ -22,7 +22,7 @@ const Cart = () => {
                         <CartProduct  key={index}
                         id={el._id}
                         name={el.name}
-                        image={el.image}
+                        image={el.productImage}
                         category={el.category}
                         price={el.price}
                         quantity={el.qty}

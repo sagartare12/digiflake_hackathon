@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from './../assets/logo.png'
 import { Link,useNavigate } from 'react-router-dom'
 import {FaShoppingCart} from 'react-icons/fa'
@@ -6,12 +6,15 @@ import {FaCircleUser} from 'react-icons/fa6'
 import { useSelector ,useDispatch} from 'react-redux'
 import {toast} from 'react-hot-toast'
 import { logoutReducer } from '../store/slices/UserSlice';
+import { allCartReducer } from '../store/slices/CartSlice'
+
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate  = useNavigate();
-  const cartItemNumber= useSelector((state)=>state.products.cartItem)
-  console.log(cartItemNumber)
+  const cartItemNumber= useSelector((state)=>state.carts.cartItems)
+  const userCart= useSelector((state)=>state.carts.userCarts)
+  console.log(userCart)
   const [shadowMenu,setShadowMenu] = useState(false);
   const userReducerData = useSelector(state=>state.users.user);
 
@@ -32,6 +35,41 @@ const Header = () => {
         navigate('/')
      }else toast.error(dataRes.message)
     }
+
+
+
+     useEffect(()=>{
+      
+      (async()=>{
+        console.log(userReducerData)
+        try {
+
+          const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users/allcart`,{
+            method:"GET",
+            headers:{
+              'content-type':'application/json',
+              
+            },
+          credentials:'include', 
+          })
+
+          const dataRes= await fetchData.json();
+          if(dataRes.status==='Success'){
+            dispatch(allCartReducer(dataRes.allCarts));
+            toast.success(`User cart.`)
+            navigate('/')
+         }else toast.error(dataRes.message)
+        
+          
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+
+      })()
+    },[userReducerData,userCart])
+
+
+
     
   
   return (

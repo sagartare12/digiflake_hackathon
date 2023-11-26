@@ -11,11 +11,16 @@ const Users = () => {
     // console.log( cookies.get('jwt'));
  
         const fetchUsers =async()=>{
-            
+            const cookies = document.cookie.split(';');
+            console.log(cookies)
      
             try {
                 const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users`,{
                     method:"GET",
+                    headers:{
+                        'content-type':'application/json',
+                        'Authorization': `Bearer jwt`
+                      },
                     credentials:'include', 
                 })
 
