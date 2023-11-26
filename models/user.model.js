@@ -27,7 +27,8 @@ const userSchema = new mongoose.Schema({
         default:()=> {
             return Date.now();
         }
-    }
+    },
+    cart:[],
 })
 
 module.exports = mongoose.model("User",userSchema);
