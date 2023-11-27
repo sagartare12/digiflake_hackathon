@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import logo from './../assets/logo.png'
+import logo from './../assets/sagar_shop.jpg'
 import { Link,useNavigate } from 'react-router-dom'
 import {FaShoppingCart} from 'react-icons/fa'
 import {FaCircleUser} from 'react-icons/fa6'
@@ -78,7 +78,7 @@ const Header = () => {
       {/* desktop */}
       <div className="flex items-center h-full justify-between">
         <Link to={"/"}>
-          <div className="h-10 md:h-14">
+          <div className="h-12 md:h-14">
             <img src={logo} alt="" className="h-full" />
           </div>
         </Link>
