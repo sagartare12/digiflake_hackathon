@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { incCartItemReducer,decCartItemReducer,deleteUserItems } from '../store/slices/CartSlice';
 import {toast} from 'react-hot-toast'
 
+
 const CartProduct = ({id,name,image,category,price,quantity,total}) => {
   const dispatch= useDispatch()
   const handleDeleteCartItem=async()=>{

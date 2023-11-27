@@ -6,6 +6,7 @@ import { GrPrevious ,GrNext } from "react-icons/gr";
 import { ImSpoonKnife } from "react-icons/im";
 import FilterProduct from '../components/FilterProduct';
 import AllProducts from '../components/AllProducts';
+import { TbTruckDelivery } from "react-icons/tb";
 
 const Home = () => {
 
@@ -56,38 +57,27 @@ console.log("defult filter"+defaultFilter)
 // console.log(allProductsReducer)
   return (
     <div className="p-2 md:p-4">
-      <div className="md:flex gap-4 py-2">
-        <div className="md:w-1/2 ">
-          <div className="w-[10em] rounded-full flex gap-3 bg-slate-400  px-2 items-center">
-            <p className="text-sm font-bold text-slate-900">Bike Delivery..</p>
-            <div className="text-slate-400">
-              <img
-                className="h-7 text-slate-400 "
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx4IU_oHAi1gU3vXRaLZ3MHYPV_F2JX_we-Q&usqp=CAU"
-                alt=""
-              />
-            </div>
+      <div className="md:flex gap-4 py-2 m-[-13px] mb-0 bg-cover bg-center" style={{ backgroundImage: 'url("https://image.slidesdocs.com/responsive-images/background/illustrative-3d-render-featuring-a-phone-food-and-an-order-button-ideal-for-promoting-online-food-delivery-services-powerpoint-background_707bc4e388__960_540.jpg")' }}>
+        <div className="md:w-1/2  justify-center items-center  px-2">
+          <div className=" " >
+          <div className="w-[11em] rounded-full justify-center flex gap-3  bg-pink-0  px-2 items-center">
+            <p className="text-sm font-bold text-slate-900  ">Bike Delivery..</p>
+            <span className="text-slate-900 ">
+            <TbTruckDelivery className="h-8 w-10" />
+            </span>
           </div>
 
           <h2 className="text-4xl font-bold md:text-6xl py-3">
             The Fastest Delivery in{" "}
             <span className="text-red-600 ">Your Home</span>
           </h2>
-          <p className="text-base max-w-lg">
-            It is a long established fact that a reader will be distracted by
-            the readable content of a page when looking at its layout. The point
-            of using Lorem Ipsum is that it has a more-or-less normal
-            distribution of letters, as opposed to using 'Content here, content
-            here', making it look like readable English. Many desktop publishing
-            packages and web page editors now use Lorem Ipsum as their default
-            model text, and a search for 'lorem ipsum' will uncover many web
-            sites still in their infancy. Various versions have evolved over the
-            years, sometimes by accident, sometimes on purpose (injected humour
-            and the like).
+          <p className="text-sm md:font-xl my-1 md:my-10 max-w-lg font-semibold text-slate-900 bg-opacity-50 bg-pink-100 p-2 shadow-md">
+          Welcome to Sagar e-shop – where delicious meets convenience! Experience the joy of having your favorite meals delivered right to your doorstep with just a few taps. Browse through a variety of cuisines and explore a world of culinary delights..
           </p>
           <button className="font-bold my-2 bg-red-500 hover:bg-red-400 rounded-md text-slate-100 px-3 py-1">
             Order Now
           </button>
+          </div>
         </div>
         <div className="md:w-1/2 flex flex-wrap gap-4 p-4 justify-center">
           {homeProductCardList[0]
