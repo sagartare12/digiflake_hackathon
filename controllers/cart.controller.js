@@ -21,11 +21,25 @@ const isItemPrsent = user.cart.filter((item)=> itemid === item.id)
 
 console.log("it"+isItemPrsent)
 
+
+
+//if item present but deleted
+
+
+isItemPrsent[0] &&  await User.findOneAndUpdate(
+    { _id: req.user._id, 'cart.id': itemid },  // Query to find the user and the item in the cart
+    {  $set: { 'cart.$.isDelete':false} },  // Increment quantity
+    { new: true }  // Return the updated document
+  );
+
+
+
 // console.log("pro"+item)
 !isItemPrsent[0] && user.cart.push({
     id:itemid,
     total:item.price,
-    quantity:1
+    quantity:1,
+    isDelete:false
 })
 const s =await user.save()
 console.log(s)
@@ -48,14 +62,17 @@ let allCarts=[]
         return next(new AppError('No any cart items found.',201))
     }
 for(let i=0;i<user.cart.length;i++){
-    const item =await Product.findById(user.cart[i].id)
+    const item =await Product.findById(user.cart[i].id )
 
     const newObj ={
         total:user.cart[i].total,
         quantity:user.cart[i].quantity
     }
-   const ne ={...item.toObject(),...newObj}
-     allCarts.push(ne)
+console.log(item)
+    if(user.cart[i].isDelete === false){
+   const newItem ={...item.toObject(),...newObj}
+     allCarts.push(newItem)
+    }
 
 }
     // const allCart = user.cart.map(async(el)=>{
@@ -66,7 +83,7 @@ for(let i=0;i<user.cart.length;i++){
 
     // })
    
-    console.log(allCarts)
+    console.log("aertrt"+allCarts)
   
 
     // console.log("arrayOfObjects"+arrayOfObjects)
@@ -121,6 +138,31 @@ let updatUser;
     });
 })
 
+
+exports.deleteItem=catchAsync(async(req,res,next)=>{
+
+
+    // const user =await User.findById(req.user._id);
+    // const cartIndex = user.cart.findIndex((el)=>el.id === req.params.id)
+    // user.cart[cartIndex].isDelete = !user.cart[cartIndex].isDelete
+    // const updatUser=await user.save();
+
+
+    const updatedUser = await User.findOneAndUpdate(
+        { _id: req.user._id, 'cart.id': req.params.id },  // Query to find the user and the item in the cart
+        { $set: { 'cart.$.isDelete':true} },  // Increment quantity
+        { new: true }  // Return the updated document
+      );
+    console.log(updatedUser)
+    res.status(200).json({
+        status:'Success', 
+        message: 'Cart updated successfully', 
+        user: updatedUser
+    });
+
+
+
+})
 
 
 

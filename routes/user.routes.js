@@ -13,4 +13,7 @@ router.post('/cart/:id',authController.protect,cartController.createUserCart)
 router.get('/allcart',authController.protect,cartController.getAllCart)
 router.patch('/iteminc/:id',authController.protect,cartController.increaseItem)
 router.patch('/itemdec/:id',authController.protect,cartController.decreaseItem)
+router.patch('/cart/:id',authController.protect,cartController.deleteItem)
+
+
 module.exports=router;
