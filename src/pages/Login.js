@@ -52,7 +52,7 @@ const Login = () => {
       
      if(dataRes.status==='Success'){
         dispatch(loginReducer(dataRes));
-        toast.success(`${userReducerData.users.user.firstName} successfully login.`)
+        toast.success(`Thank you for login 🙏`)
         setTimeout(()=>{
           navigate('/')
         },1000);

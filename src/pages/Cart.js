@@ -25,7 +25,9 @@ const Cart = () => {
                         image={el.productImage}
                         category={el.category}
                         price={el.price}
-                        quantity={el.qty}
+                        quantity={el.quantity}
+
+                        
                         total={el.total}
                         />
                     )

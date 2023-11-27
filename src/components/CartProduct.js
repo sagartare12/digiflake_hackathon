@@ -2,13 +2,68 @@ import React, { useCallback, useEffect }  from 'react'
 import { MdDelete } from "react-icons/md";
 import { deleteCartItems,inacreaseQty,decreaseQty } from '../store/slices/ProductSlice';
 import { useDispatch } from 'react-redux';
+import { incCartItemReducer,decCartItemReducer,deleteUserItems } from '../store/slices/CartSlice';
+import {toast} from 'react-hot-toast'
 
 const CartProduct = ({id,name,image,category,price,quantity,total}) => {
   const dispatch= useDispatch()
-  const handleDeleteCartItem=()=>{
-    console.log('ji')
-    dispatch(deleteCartItems(id));
+  const handleDeleteCartItem=async()=>{
+    // console.log('ji')
+    // dispatch(deleteCartItems(id));
+    const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users/cart/${id}`,{
+      method:"PATCH",
+      headers:{
+        'content-type':'application/json',
+        
+      },
+      credentials:"include"
+    })
+
+    const dataRes = await fetchData.json();
+    console.log(dataRes)
+     if(dataRes.status==='Success'){
+      dispatch(deleteUserItems (dataRes.user.cart));
+      toast.success(dataRes.message)
+      
+   }else toast.error(dataRes.message)
    
+  }
+
+
+  const handleIncCartItem=async()=>{
+    const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users/iteminc/${id}`,{
+      method:"PATCH",
+      headers:{
+        'content-type':'application/json',
+        
+      },
+      credentials:"include"
+    })
+    const dataRes = await fetchData.json();
+    console.log(dataRes)
+     if(dataRes.status==='Success'){
+      dispatch(incCartItemReducer(dataRes.user.cart));
+      toast.success(dataRes.message)
+      
+   }else toast.error(dataRes.message)
+  }
+
+  const handleDecCartItem=async()=>{
+    const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users/itemdec/${id}`,{
+      method:"PATCH",
+       headers:{
+        'content-type':'application/json',
+        
+      },
+      credentials:"include"
+    })
+    const dataRes = await fetchData.json();
+    console.log(dataRes)
+    if(dataRes.status==='Success'){
+      dispatch(decCartItemReducer(dataRes.user.cart));
+      toast.success(dataRes.message)
+      
+   }else toast.error(dataRes.message)
   }
   return (
     <div className="bg-slate-200 p-2 flex border-2 border-slate-300 my-1">
@@ -26,9 +81,9 @@ const CartProduct = ({id,name,image,category,price,quantity,total}) => {
           <p className="text-left font-bold text-sm md:text-base"><span className='text-red-500 font-md '>₹ </span><span>{price}</span></p>
           <div className="flex justify-between font-bold items-center gap-1 ">
             <div className="flex items-center gap-1">
-            <button onClick={()=>dispatch(inacreaseQty(id))} className="bg-slate-300 rounded-sm  hover:bg-slate-400 h-[30px] w-[40px] md:w-[70px] text-md   my-2">+</button>
+            <button onClick={handleIncCartItem} className="bg-slate-300 rounded-sm  hover:bg-slate-400 h-[30px] w-[40px] md:w-[70px] text-md   my-2">+</button>
             <p className="font-bold">{quantity ? quantity : 0}</p>
-            <button onClick={()=>dispatch(decreaseQty(id))}  className="bg-slate-300 rounded-sm hover:bg-slate-400 h-[30px] w-[40px] md:w-[70px] text-xl  my-2 " >-</button>
+            <button onClick={handleDecCartItem}  className="bg-slate-300 rounded-sm hover:bg-slate-400 h-[30px] w-[40px] md:w-[70px] text-xl  my-2 " >-</button>
             </div>
             <div className="flex text-sm md:text-base text-slate-700 gap-1 md:gap-2">
               <p>Total:</p>

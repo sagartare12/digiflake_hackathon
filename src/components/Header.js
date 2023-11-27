@@ -31,6 +31,7 @@ const Header = () => {
     console.log(userReducerData)
       if(dataRes.status==='Success'){
         dispatch(logoutReducer());
+        dispatch(allCartReducer([]));
         toast.success(`User logged out.`)
         navigate('/')
      }else toast.error(dataRes.message)
@@ -106,7 +107,7 @@ const Header = () => {
             {shadowMenu && (
               <div className=" absolute right-2 bg-white py-2 px-3 shadow drop-shadow-md flex flex-col text-center min-w-[128px] ">
                 {userReducerData.email===process.env.REACT_APP_ADMIN_EMAIL && <Link to={"/newproduct"} className=" hover:bg-slate-300 whitespace-nowrap cursor-pointer hover:font-medium">New product</Link>}
-                {!userReducerData.image ? <Link to={"/login"} className="hover:bg-slate-300 whitespace-nowrap cursor-pointer hover:font-medium">Login</Link> :
+                {!userReducerData.firstName ? <Link to={"/login"} className="hover:bg-slate-300 whitespace-nowrap cursor-pointer hover:font-medium">Login</Link> :
                 <p className="whitespace-nowrap cursor-pointer hover:bg-slate-300  hover:font-medium" onClick={handleLogout}>Logout<span>({userReducerData.firstName})</span></p> }
                   <nav className="flex flex-col  md:hidden">
             <Link to={"/"} className="hover:bg-slate-300 text-black">Home</Link>

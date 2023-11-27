@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom'
 import CartFeature from '../components/CartFeature'
 import AllProducts from '../components/AllProducts'
 import { addCartItems } from '../store/slices/ProductSlice'
+import {toast} from 'react-hot-toast'
+import { addCartReducer } from '../store/slices/CartSlice'
+
 
 const Menu = () => {
   const {productid} = useParams()
@@ -18,16 +21,40 @@ console.log("similar products " +similarProducts)
 console.log(productById)
 
 //
-  const handleAddCartProduct=()=>{
-    dispatch(addCartItems({
-      _id:productById._id,
-      name:productById.name,
-      image:productById.productImage,
-      category:productById.category,
-      price:productById.price
-    }))
+const handleAddCartProduct=async()=>{
+
+
+  // new code
+  const fetchData = await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users/cart/${productById._id}`,{
+    method:"POST",
+    headers:{
+      'content-type':'application/json',
+      
+    },
+  credentials:'include', 
+  
+  })
+  const dataRes= await fetchData.json();
+  console.log(dataRes)
+  if(dataRes.status==='Success'){
+    dispatch(addCartReducer(dataRes.updatedCart));
+    toast.success(dataRes.message)
     
-  }
+ }else toast.error(dataRes.message)
+ 
+}
+
+
+  // const handleAddCartProduct=()=>{
+  //   dispatch(addCartItems({
+  //     _id:productById._id,
+  //     name:productById.name,
+  //     image:productById.productImage,
+  //     category:productById.category,
+  //     price:productById.price
+  //   }))
+    
+  // }
   return (
     <div className="p-2 md:p-4">
       <div className="w-full max-w-4xl bg-white m-auto md:flex text-2xl">
