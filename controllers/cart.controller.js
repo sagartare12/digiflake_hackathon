@@ -142,10 +142,7 @@ let updatUser;
 exports.deleteItem=catchAsync(async(req,res,next)=>{
 
 
-    // const user =await User.findById(req.user._id);
-    // const cartIndex = user.cart.findIndex((el)=>el.id === req.params.id)
-    // user.cart[cartIndex].isDelete = !user.cart[cartIndex].isDelete
-    // const updatUser=await user.save();
+   
 
 
     const updatedUser = await User.findOneAndUpdate(
