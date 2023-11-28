@@ -10,7 +10,7 @@ const cors = require("cors")
 
 
 app.use(cors({
-    origin: 'https://mern-restaurant-app-frontend.vercel.app',
+    origin: 'http://localhost:3000',
     credentials: true, 
 }));
 

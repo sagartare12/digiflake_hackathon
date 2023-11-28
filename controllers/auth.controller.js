@@ -63,13 +63,17 @@ exports.logIn=catchAsync(async (req,res,next)=>{
     }
    const token =signToken(user._id);
 
-   res.cookie('jwt',token, {
-    expires:new Date(
-        Date.now()+60*1000*60
+
+   const cookieOptions = {
+    expires: new Date(
+      Date.now() +  4 * 60 * 60 * 1000
     ),
-    httpOnly:true,
-  
-   });
+    httpOnly: false
+  };
+
+  if(process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+   res.cookie('jwt',token,cookieOptions);
   
 
 
@@ -84,12 +88,21 @@ exports.logIn=catchAsync(async (req,res,next)=>{
 
 exports.logout =(req,res)=>{
 
-    res.cookie('jwt','loggedout',{
-        expires:new Date(
-            Date.now()+1000*10
+    // res.cookie('jwt','loggedout',{
+    //     expires:new Date(
+    //         Date.now()+1000*10
+    //     ),
+    //     httpOnly:true
+    // })
+    const cookieOptions = {
+        expires: new Date(
+          Date.now() +  10 * 1000
         ),
-        httpOnly:true
-    })
+        httpOnly: false
+      };
+    
+    if(process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+    res.cookie('jwt','loggedout',cookieOptions)
 
     res.status(200).json({
         status:'Success',
