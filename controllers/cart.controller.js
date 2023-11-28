@@ -10,9 +10,7 @@ exports.createUserCart =catchAsync(async(req,res,next)=>{
 
     //get the user id
     const itemid = req.params.id
-// console.log(req.params)
-    //create cart doc
-// console.log(req.user._id)
+
 const user = await User.findById(req.user._id);
 
 const item  =await Product.findById(req.params.id)
@@ -32,9 +30,6 @@ isItemPrsent[0] &&  await User.findOneAndUpdate(
     { new: true }  // Return the updated document
   );
 
-
-
-// console.log("pro"+item)
 !isItemPrsent[0] && user.cart.push({
     id:itemid,
     total:item.price,
@@ -75,18 +70,12 @@ console.log(item)
     }
 
 }
-    // const allCart = user.cart.map(async(el)=>{
-    //     console.log(el._id)
-    //     const item  =await Product.findById(el.id)
-    //     await allCarts.push(item)
   
-
-    // })
    
     console.log("aertrt"+allCarts)
   
 
-    // console.log("arrayOfObjects"+arrayOfObjects)
+   
     res.status(200).json({
         status:"Success",
         allCarts
@@ -150,7 +139,7 @@ exports.deleteItem=catchAsync(async(req,res,next)=>{
         { $set: { 'cart.$.isDelete':true} },  // Increment quantity
         { new: true }  // Return the updated document
       );
-    console.log(updatedUser)
+   
     res.status(200).json({
         status:'Success', 
         message: 'Cart updated successfully', 

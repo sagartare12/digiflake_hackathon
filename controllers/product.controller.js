@@ -3,7 +3,7 @@ const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 
 exports.createProduct=catchAsync(async(req,res,next)=>{
-  console.log('ji')
+  
     const {name,category,productImage,price,description} = req.body;
     if(!name || !category || !productImage || !price || !description) next(new AppError('Please enter required fields')) 
     
@@ -26,7 +26,7 @@ exports.createProduct=catchAsync(async(req,res,next)=>{
 exports.getAllProducts=catchAsync(async(req,res,next)=>{
   
 const allProducts =await Product.find();
-console.log(allProducts)
+
 
 res.status(200).json({
   status:"Success",

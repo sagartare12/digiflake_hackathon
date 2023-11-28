@@ -48,7 +48,7 @@ exports.signUp = catchAsync(async(req,res,next)=>{
 
 exports.logIn=catchAsync(async (req,res,next)=>{
     const {email,password}=req.body;;
-    console.log(req.headers.cookie)
+    
    const user =await User.findOne({email}).select('+password');
    if(!user || !(await bcrypt.compare(password,user.password))){
     return next(new AppError('Incorrect email or password',401))
@@ -97,7 +97,7 @@ exports.logout =(req,res)=>{
 }
 
 exports.getAllUsers=catchAsync(async(req,res,next)=>{
-    console.log("req.user"+req.user)
+    
     const allUsers =await User.find();
     res.status(200).json({
       status:"Success",
@@ -132,12 +132,7 @@ exports.getAllUsers=catchAsync(async(req,res,next)=>{
              )
          }
       
-         // 4) If user change the password
-    //    if(freshUser.changedPasswordAfter(decode.iat)){
-    //      return next(
-    //        new AppError('User recently changed password ! Please log in again',401)
-    //      )
-    //    }
+ 
        req.user = loggedInUser;
         next();
       })
