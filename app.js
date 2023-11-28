@@ -12,6 +12,7 @@ const cors = require("cors")
 app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true, 
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 app.use(express.json({limit:"10mb"}));
