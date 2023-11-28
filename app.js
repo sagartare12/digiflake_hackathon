@@ -8,11 +8,16 @@ const globalErrorHandler = require('./controllers/error.controller')
 const cors = require("cors")
 
 
+app.use((req, res, next) =>{ 
+    res.setHeader( 'Content-Security-Policy', "script-src 'self' https://cdnjs.cloudflare.com" ); 
+    next(); 
+  })
 
 app.use(cors({
     origin: "https://mern-restaurant-app-frontend.vercel.app",
+    // origin: "http://localhost:3000",
     credentials: true, 
-    allowedHeaders: ["Content-Type", "Authorization"],
+    // allowedHeaders: ["Content-Type", "Authorization"],
 }));
 
 app.use(express.json({limit:"10mb"}));
