@@ -10,7 +10,7 @@ const cors = require("cors")
 
 
 app.use(cors({
-    origin: true,
+    origin: "https://mern-restaurant-app-frontend.vercel.app",
     credentials: true, 
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
