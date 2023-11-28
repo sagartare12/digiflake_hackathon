@@ -6,7 +6,7 @@ import {FaCircleUser} from 'react-icons/fa6'
 import { useSelector ,useDispatch} from 'react-redux'
 import {toast} from 'react-hot-toast'
 import { logoutReducer } from '../store/slices/UserSlice';
-import { allCartReducer } from '../store/slices/CartSlice'
+import { allCartReducer ,deleteUserItems } from '../store/slices/CartSlice'
 
 
 const Header = () => {
@@ -32,6 +32,8 @@ const Header = () => {
       if(dataRes.status==='Success'){
         dispatch(logoutReducer());
         dispatch(allCartReducer([]));
+        dispatch(deleteUserItems([]));
+        
         toast.success(`User logged out.`)
         navigate('/')
      }else toast.error(dataRes.message)
@@ -58,7 +60,7 @@ const Header = () => {
           if(dataRes.status==='Success'){
             dispatch(allCartReducer(dataRes.allCarts));
             toast.success(`User cart.`)
-            navigate('/')
+            // navigate('/')
          }else toast.error(dataRes.message)
         
           
@@ -110,7 +112,6 @@ const Header = () => {
                 <p className="whitespace-nowrap cursor-pointer hover:bg-slate-300  hover:font-medium" onClick={handleLogout}>Logout<span>({userReducerData.firstName})</span></p> }
                   <nav className="flex flex-col  md:hidden">
             <Link to={"/"} className="hover:bg-slate-300 text-black">Home</Link>
-            <Link to={"/menu"} className="hover:bg-slate-300 text-black">Menu</Link>
             <Link to={"/about"} className="hover:bg-slate-300 text-black">About</Link>
             <Link to={"/contact"} className="hover:bg-slate-300 text-black">Contact</Link>
           </nav>

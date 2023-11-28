@@ -24,7 +24,7 @@ const CartProduct = ({id,name,image,category,price,quantity,total}) => {
     console.log(dataRes)
      if(dataRes.status==='Success'){
       dispatch(deleteUserItems (dataRes.user.cart));
-      toast.success(dataRes.message)
+      // toast.success(dataRes.message)
       
    }else toast.error(dataRes.message)
    
@@ -41,7 +41,7 @@ const CartProduct = ({id,name,image,category,price,quantity,total}) => {
       credentials:"include"
     })
     const dataRes = await fetchData.json();
-    console.log(dataRes)
+    // console.log(dataRes)
      if(dataRes.status==='Success'){
       dispatch(incCartItemReducer(dataRes.user.cart));
       toast.success(dataRes.message)
@@ -59,7 +59,7 @@ const CartProduct = ({id,name,image,category,price,quantity,total}) => {
       credentials:"include"
     })
     const dataRes = await fetchData.json();
-    console.log(dataRes)
+    // console.log(dataRes)
     if(dataRes.status==='Success'){
       dispatch(decCartItemReducer(dataRes.user.cart));
       toast.success(dataRes.message)

@@ -82,8 +82,9 @@ console.log(productReducerData);
         <label htmlFor="category" className="mb-1">Category</label>
         <select name="category" id=""  className="bg-slate-200 p-1  mb-2" onChange={handleOnChange} value={productData.category}>
           <option value="Fruits">Fruits</option>
-          <option value="Vegetable">Vegetable</option>
-          <option value="Ice-cream">Ice-cream</option>
+          <option value="Veg">Vegetable</option>
+          <option value="Non-veg">Non-vegetable</option>
+          <option value="Burger">Burger</option>
           <option value="Dosa">Dosa</option>
           <option value="Pizza">Pizza</option>
         </select>

@@ -13,7 +13,7 @@ const Home = () => {
   const allProductsReducer = useSelector(state=>state.products.product);
   const homeProductCardList = allProductsReducer.slice(0,4) 
   // console.log(homeProductCardList)
-  const vegetableProductList = allProductsReducer.filter((el)=> el.category === "Vegetable",[])
+  const vegetableProductList = allProductsReducer.filter((el)=> el.category === "Veg",[])
   console.log(vegetableProductList)
 
   const isLoadingHomeCard = new Array(4).fill(null)
@@ -61,7 +61,7 @@ console.log("defult filter"+defaultFilter)
         <div className="md:w-1/2  justify-center items-center  px-2">
           <div className=" " >
           <div className="w-[11em] rounded-full justify-center flex gap-3  bg-pink-0  px-2 items-center">
-            <p className="text-sm font-bold text-slate-900  ">Bike Delivery..</p>
+            <p className="text-sm font-bold text-slate-900  ">Your Delivery..</p>
             <span className="text-slate-900 ">
             <TbTruckDelivery className="h-8 w-10" />
             </span>
@@ -101,8 +101,8 @@ console.log("defult filter"+defaultFilter)
 
       <div className="">
         <div className="flex ">
-        <h2 className="font-bold text-2xl mb-4 text-slate-800">
-          Fresh Vegetables
+        <h2 className="font-bold text-lg md:text-2xl mb-1 md:mb-4 text-slate-800">
+          Veg foods
         </h2>
         <div className="ml-auto flex gap-2">
         <button onClick={()=>prevProduct()} className=" bg-slate-300 text-sm p-1"><GrPrevious /></button>
@@ -110,7 +110,7 @@ console.log("defult filter"+defaultFilter)
         </div>
         </div>
         <div className="flex items-center ">
-          <div className="flex   gap-3  overflow-scroll scrollbar-none scroll-smooth transition-all" ref={slideProductRef} >
+          <div className="flex  gap-2 md:gap-3  overflow-x-auto scrollbar-none scroll-smooth transition-all" ref={slideProductRef} >
          
             {vegetableProductList[0] ?
               vegetableProductList.map((el) => {

@@ -17,7 +17,7 @@ console.log(categoryList)
       else setFilterBy("")
     }
     useEffect(()=>{
-      const filter =filterBy ? allProductsReducer.filter((el)=>el.category.toLowerCase() === filterBy.toLowerCase()) : allProductsReducer
+      const filter =filterBy ? allProductsReducer.filter((el)=>el.category === filterBy) : allProductsReducer
       console.log(filter)
       setDefaultFilter(()=>{
         return [
@@ -28,10 +28,10 @@ console.log(categoryList)
     },[filterBy,allProductsReducer])
   return (
     <div className="">
-    <h2 className="font-bold text-2xl mb-4 text-slate-800">
+    <h2 className="font-bold text-lg md:text-2xl mb-4 text-slate-800">
         {heading}
     </h2>
-    <div className="flex gap-4 justify-center overflow-scroll scrollbar-none">
+    <div className="flex gap-4 md:justify-center items-center overflow-scroll scrollbar-none">
       {
         categoryList[0] && categoryList.map((el,index)=>{
           return (
@@ -39,7 +39,7 @@ console.log(categoryList)
               key={index}
               category={el}
               onClick={() => handleFilterProduct(el)}
-              isActive={el.toLowerCase()=== filterBy.toLowerCase()}
+              isActive={el=== filterBy}
             />
           );
         })
