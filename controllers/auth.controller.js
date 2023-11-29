@@ -68,13 +68,15 @@ exports.logIn=catchAsync(async (req,res,next)=>{
     expires: new Date(
       Date.now() +  4 * 60 * 60 * 1000
     ),
-    httpOnly: true
+    httpOnly: true,
+    secure: true,
+    sameSite: 'None',
   };
 
-  if(process.env.NODE_ENV === 'production') {
-    cookieOptions.secure = true;
-    console.log(process.env.NODE_ENV)
-  }
+  // if(process.env.NODE_ENV === 'production') {
+  //   cookieOptions.secure = true;
+  //   console.log(process.env.NODE_ENV)
+  // }
 
    res.cookie('jwt',token,cookieOptions);
   
