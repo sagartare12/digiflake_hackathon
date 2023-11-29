@@ -54,6 +54,7 @@ const Header = () => {
               
             },
           credentials:'include', 
+          mode: 'cors',
           })
 
           const dataRes= await fetchData.json();

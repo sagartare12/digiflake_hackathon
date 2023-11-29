@@ -7,19 +7,20 @@ import Payment from '../components/Payment';
 const Cart = () => {
     const cartProduct= useSelector((state)=>state.carts.cartItems)
     const userCart= useSelector((state)=>state.carts.userCarts)
+    const cartItemNumber= useSelector((state)=>state.carts.cartItems)
     // console.log("cart product" + cartProduct[0].name)
     const isLoadingCartProduct  = new Array(2).fill(null)
     const totalPrice = cartProduct.reduce((acc,curr)=>acc+parseInt(curr.total),0);
-    console.log(totalPrice)
+    console.log(cartItemNumber[0])
   return (
     <div className="p-2 md:p-4">
 
-      {userCart[0] ?    <div>  <h2 className="text-lg md:text-xl font-bold text-slate-600">Your Cart Items</h2>
+      {cartItemNumber[0] ?    <div>  <h2 className="text-lg md:text-xl font-bold text-slate-600">Your Cart Items</h2>
       <div className="my-4  gap-4 flex flex-col md:flex-row  w-full justify-center">
         {/* display cart items */}
         <div className="w-full max-w-2xl rounded  ">
             {
-                cartProduct[0] ? cartProduct.map((el,index)=>{
+                cartItemNumber[0] ? cartProduct.map((el,index)=>{
                     return (
                         <CartProduct  key={index}
                         id={el._id}
