@@ -22,12 +22,17 @@ app.use(cors({
     credentials: true, 
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
+
+app.use((req, res, next) => {
+    res.setHeader('X-My-Custom-Header', 'my-custom-value');
+    next();
+  });
 app.use(cookieParser())
 
 app.use(express.urlencoded({extended:true , limit:'10kb'}))
 app.use(express.json({limit:"10mb"}));
 
-
+app.options('*', cors());
 //routes
 
 app.use('/api/v1/users' , userRouter);
