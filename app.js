@@ -13,12 +13,16 @@ app.use((req, res, next) =>{
     next(); 
   })
 
+  let frontEndUrl;
+  if(process.env.NODE_ENV === 'production'){
+         frontEndUrl = process.env.FRONTEND_URL
+  }else frontEndUrl = "http://localhost:3000"
 app.use(cors({
-    origin: "https://mern-restaurant-app-frontend.vercel.app",
-    // origin: "http://localhost:3000",
+    origin: frontEndUrl,
     credentials: true, 
     // allowedHeaders: ["Content-Type", "Authorization"],
 }));
+app.use(cookieParser())
 
 app.use(express.json({limit:"10mb"}));
 
@@ -32,7 +36,7 @@ app.use('/api/v1/products',productRouter)
 // })
 //unhandled routes
 
-app.use(cookieParser())
+
 
 app.all('*',(req,res,next)=>{
     // const err= new Error(`Cant't find ${req.originalUrl} on this server!`)

@@ -71,7 +71,10 @@ exports.logIn=catchAsync(async (req,res,next)=>{
     httpOnly: false
   };
 
-  if(process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+  if(process.env.NODE_ENV === 'production') {
+    cookieOptions.secure = true;
+    console.log(process.env.NODE_ENV)
+  }
 
    res.cookie('jwt',token,cookieOptions);
   
