@@ -48,7 +48,7 @@ exports.signUp = catchAsync(async(req,res,next)=>{
 
 exports.logIn=catchAsync(async (req,res,next)=>{
     const {email,password}=req.body;;
-    
+    console.log('Cookie set:', req.cookies);
    const user =await User.findOne({email}).select('+password');
    if(!user || !(await bcrypt.compare(password,user.password))){
     return next(new AppError('Incorrect email or password',401))
@@ -68,7 +68,7 @@ exports.logIn=catchAsync(async (req,res,next)=>{
     expires: new Date(
       Date.now() +  4 * 60 * 60 * 1000
     ),
-    httpOnly: false
+    httpOnly: true
   };
 
   if(process.env.NODE_ENV === 'production') {

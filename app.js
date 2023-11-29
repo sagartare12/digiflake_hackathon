@@ -20,7 +20,7 @@ app.use((req, res, next) =>{
 app.use(cors({
     origin: frontEndUrl,
     credentials: true, 
-    // allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
 app.use(cookieParser())
 
