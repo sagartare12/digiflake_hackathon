@@ -103,7 +103,9 @@ exports.logout =(req,res)=>{
         expires: new Date(
           Date.now() +  10 * 1000
         ),
-        httpOnly: false
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
       };
     
     if(process.env.NODE_ENV === 'production') cookieOptions.secure = true;

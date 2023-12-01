@@ -72,7 +72,7 @@ console.log(item)
 }
   
    
-   
+    console.log("aertrt"+allCarts)
   
 
    
