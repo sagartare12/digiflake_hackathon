@@ -50,7 +50,7 @@ const CartFeature = ({name,image,category,price,isLoading,id}) => {
      </div>
       <h3 className="text-center font-semibold text-slate-600  capitalize text-sm md:text-lg md:mt-4">{name}</h3>
              <p className="text-center  text-slate-500 font text-sm md:text-md">{category}</p>
-             <p className="text-center  font-bold"><span className='text-red-500 text-sm md:text-md'>₹ </span><span>{price}</span></p>
+             <p className="text-center  font-bold"><span className='text-red-500 text-sm md:text-md'>₹ </span><span className="text-slate-500">{price}</span></p>
              </Link>
              <button className="bg-yellow-500 hover:bg-yellow-600 md:py-1 w-full md:my-2" onClick={handleAddCartProduct}>Add Cart</button>
             
