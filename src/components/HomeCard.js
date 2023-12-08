@@ -1,4 +1,5 @@
 import React from 'react'
+import '../App.css'
 import { Link } from 'react-router-dom';
 
 const HomeCard=({name,image,category,price,isLoading,id})=>{
@@ -17,7 +18,7 @@ const HomeCard=({name,image,category,price,isLoading,id})=>{
                      <p className="text-center font-bold text-sm md:text-lg"><span className='text-red-500 '>₹ </span><spna>{price}</spna></p> */}
                     </Link>
                 </div> :
-                <div className="flex justify-center items-center h-full"><p>{isLoading}</p></div>
+                <div className="flex justify-center items-center  h-[100px] p-1 md:h-[150px] w-[100px] md:w-[150px] css-lazy"><p>{isLoading}</p></div>
                 
             }
            

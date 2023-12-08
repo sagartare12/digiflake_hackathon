@@ -1,4 +1,5 @@
 import React from 'react'
+import '../App.css'
 import { Link } from 'react-router-dom'
 import { addCartItems } from '../store/slices/ProductSlice'
 import { useDispatch } from 'react-redux'
@@ -55,7 +56,18 @@ const CartFeature = ({name,image,category,price,isLoading,id}) => {
              <button className="bg-yellow-500 hover:bg-yellow-600 md:py-1 w-full md:my-2" onClick={handleAddCartProduct}>Add Cart</button>
             
              </> :
-            <p className="flex h-full justify-center items-center">{isLoading}</p>
+            // <p className="flex h-full justify-center items-center css-lazy">{isLoading}</p>
+            <>
+            <div className="h-22 md:h-28 w-full  bg-cover mx-auto md:max-w-[120px] flex flex-col justify-center css-lazy">
+      
+     </div>
+    
+      <p className="  w-full h-2  my-1  md:h-3 text-sm md:text-lg md:mt-4 css-lazy">{}</p>
+      <p className="  w-full h-2 my-1  md:h-3 text-sm md:text-lg md:mt-4 css-lazy">{}</p>
+      <p className="  w-[50px] h-3  my-1 md:h-4 text-sm md:text-lg md:mt-4 css-lazy">{}</p>
+      
+
+             </>
 }
      </div>
     
