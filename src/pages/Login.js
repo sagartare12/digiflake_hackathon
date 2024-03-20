@@ -5,6 +5,8 @@ import {Link,useNavigate} from 'react-router-dom'
 import {toast} from 'react-hot-toast'
 import { useDispatch,useSelector } from 'react-redux';
 import { loginReducer } from '../store/slices/UserSlice';
+import logo from './../assets/logoD.png'
+import axios from 'axios';
 
 const Login = () => {
   const navigate  = useNavigate();
@@ -48,7 +50,7 @@ const Login = () => {
     })
 
     const dataRes= await fetchdata.json();
-  
+  console.log(dataRes)
       
      if(dataRes.status==='Success'){
         dispatch(loginReducer(dataRes));
@@ -60,56 +62,79 @@ const Login = () => {
     }
 
   return (
-    <div className="p-3 md:p-4  ">
-      <div className="w-full max-w-sm bg-white mx-auto flex-col p-4 ">
-        {/* <h1 className='text-center text-2xl font-bold'>Signup</h1> */}
-        <div className="w-20 overflow-hidden rounded-full drop-shadow-md shadow-md m-auto">
-          <img src={loginSignupImage} alt="" className="w-full" />
-        </div>
-        <form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
-          {/* <form className="w-full py-3 flex flex-col"> */}
-          <label htmlFor="email">E-mail</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="mt-1 mb-2 w-full bg-slate-200 px-2 py-1 rounded focus-within:outline-blue-300"
-            value={userData.email}
-            onChange={handleOnChange}
-          />
 
-          <label htmlFor="password">Password</label>
-          <div className="flex px-2 py-1 bg-slate-200  rounded mt-1 mb-2 focus-within:outline focus-within:outline-blue-300 ">
-            <input
-              type={!showPassword ? "password" : "text"}
-              id="password"
-              name="password"
-              className=" w-full bg-slate-200 outline-0 border-none "
-              value={userData.password}
-              onChange={handleOnChange}
-            />
-            <span
-              className="flex text-xl cursor-pointer"
+<form className="w-full py-3 flex flex-col" onSubmit={handleSubmit}>
+    <div className="w-[580px] h-[620px] bg-white absolute top-[40px] left-[46px] rounded-lg shadow-lg" style={{ boxShadow: '0px 4px 15px 0px rgba(0, 0, 0, 0.75)' }}>
+    {/* Your content here */}
+    <div className="w-[150px] h-[75px]  mt-[40px] left-0 right-0 mx-auto ">
+        <img src={logo} alt="My Image" className="w-full h-full object-cover rounded-lg" />
+      </div>
+      
+      <div className="left-0 right-0  ">
+        <h1 className="font-poppins text-center  font-normal leading-48 tracking-normal ">
+        Welcome to Digitalflake Admin
+        </h1>
+      </div>
+{/* username */}
+<label htmlFor="email"/>
+      <div className="relative w-[500px] my-12 top-8 left-0 right-0 mx-auto">
+      <input
+              type="email"
+                      id="email"
+                      name="email"
+                      value={userData.email}
+                      onChange={handleOnChange}
+        className="block w-full py-2 px-3 border border-gray-300  focus:outline-none focus:border-blue-500 placeholder-transparent"
+      />
+      <div className="absolute inset-x-0 top-[-10px] flex items-center ml-5 justify-left">
+        <div className="bg-white px-2">Email ID</div>
+      </div>
+    </div>
+{/* Password */}
+<label htmlFor="password"/>
+    <div className="relative w-[500px] my-12 top-8 left-0 right-0 mx-auto">
+      <input
+       type={!showPassword ? "password" : "text"}
+                 id="password"
+                 name="password"    
+                 value={userData.password}
+                 onChange={handleOnChange}
+        className="block w-full py-2 px-3 border border-gray-300  focus:outline-none focus:border-blue-500 placeholder-transparent"
+      />
+     
+      <div className="absolute inset-x-0 top-[-10px] flex items-center ml-5 justify-left">
+        <div className="bg-white px-2">Password</div>
+      </div>
+      <span
+              className=" absolute ml-[450px] inset-x-0 top-3 ml-30  text-xl cursor-pointer "
               onClick={handleShowPassword}
             >
               {showPassword ? <BiShow /> : <BiHide />}
             </span>
+    </div>
+{/* forgot */}
+    
+<div className="flex justify-end">
+  <div className="bg-white mt-4 text-purple-700  px-8 mr-4 text-right">Forgot Password</div>
+</div>
+{/* 
+button */}
+
+<div className='px-10 mt-10'>
+<button type="submit" className="  w-full m-auto bg-purple-800    cursor-pointer text-white  font-medium text-center py-2  mt-8">
+        Log In
+          </button>
           </div>
 
-          <button type="submit" className="max-w-[120px]   w-full m-auto bg-red-500 hover:bg-red-600 cursor-pointer text-white  font-medium text-center py-1 rounded-full mt-4">
-            Log In
-          </button>
-        </form>
-       
-        <p className="text-sm justify mt-2 ">
-          Create a new account ?{" "}
-          <Link to="/signup" className="text-red-500  font-bold underline">
+          <p className="text-sm mx-10  justify mt-5 ">
+           Create a new account ?{" "}
+         <Link to="/signup" className="text-purple-800  font-bold underline">
             Signup
           </Link>
-        </p>
-      
-      </div>
-    </div>
+         </p>
+  </div>
+</form>
+
   );
 }
 

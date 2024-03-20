@@ -13,11 +13,18 @@ const Cart = () => {
     const totalPrice = cartProduct.reduce((acc,curr)=>acc+parseInt(curr.total),0);
     console.log(cartItemNumber[0])
   return (
-    <div className="p-2 md:p-4">
+    <div className="flex">
+    <div className="w-1/2 h-10 bg-gray-200">Column 1</div>
+    <div className="w-1/2 h-10 bg-gray-300">Column 2</div>
+  <h1>ji</h1>
+  <h1>ji</h1>
+  <h1>ji</h1>
+  
+  <h1>ji</h1>
+  <h1>ji</h1>
+  </div>
 
-     
-      
-    </div>
+   
   )
 }
 

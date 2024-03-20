@@ -11,14 +11,21 @@ const userSlice =createSlice({
             console.log(action.payload)
         },
         loginReducer(state,action){
+            console.log(action.payload)
             state.user=action.payload.loginUser;
         },
         logoutReducer(state,action){
+            console.log(action.payload)
+            console.log("lo")
             state.user={}
-        }
+        },
+        logoutRedu(state,action){
+            state.user={}
+        },
+
     }
 })
 
 export default  userSlice.reducer;
 
-export const {addUser,loginReducer,logoutReducer} = userSlice.actions;
+export const {addUser,loginReducer,logoutReducer,logoutRedu} = userSlice.actions;
