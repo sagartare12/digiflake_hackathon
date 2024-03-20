@@ -110,9 +110,9 @@ exports.logout =(req,res)=>{
     
     if(process.env.NODE_ENV === 'production') cookieOptions.secure = true;
     res.cookie('jwt','loggedout',cookieOptions)
-
+console.log("ji")
     res.status(200).json({
-        status:'Success',
+        status:'Logged out!',
     })
 }
 
