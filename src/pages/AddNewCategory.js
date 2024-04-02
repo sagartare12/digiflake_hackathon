@@ -1,7 +1,15 @@
 import React from 'react'
 import {useState} from 'react'
-const AddNewCategory = () => {
+import {Link,useNavigate} from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux';
+import {toast} from 'react-hot-toast'
+import { addCategoryReducer} from '../store/slices/CategorySlice';
 
+
+const AddNewCategory = () => {
+  const navigate  = useNavigate();
+
+  const dispatch = useDispatch();
   const [categoryData,setCategoryData] = useState({
     categoryName:"",
     description:"",
@@ -18,12 +26,44 @@ const AddNewCategory = () => {
       }
     }) 
 }
+
+
+
+
+
+const handleSubmit=async(e)=>{
+  e.preventDefault();
+console.log(categoryData)
+  const {categoryName,description,status} =categoryData;
+  if( !categoryName || !description || !status) return  alert("Please enter required fields")
+  const fetchdata=await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/category/createCategory`,{
+  method:'POST',
+  headers:{
+    'content-type':'application/json'
+  },
+  credentials: 'include', 
+  body:JSON.stringify(categoryData)
+})
+
+const dataRes= await fetchdata.json();
+console.log(dataRes)
+  
+ if(dataRes.statuss==='Success'){
+    dispatch(addCategoryReducer(dataRes));
+    toast.success("Category created successfully.")
+    setTimeout(()=>{
+      navigate('/category')
+    },1000);
+ }else toast.error(dataRes.message)
+}
+
+
   return (
     <div className='w-full bg-white'>
 
 <h3 className='font-bold mt-6 ml-8 text-lg'>Add Category</h3>
 
-      <form className="w-full py-2 flex flex-col" onSubmit="#">
+      <form className="w-full py-2 flex flex-col" onSubmit={handleSubmit}>
         <div className="flex justify-between mx-6">
             <div className="">
       <label htmlFor="categoryName"/>
@@ -44,7 +84,7 @@ const AddNewCategory = () => {
 
 
 <div className="">
-    <label htmlFor="emaidescriptionl"/>
+    <label htmlFor="descriptionl"/>
       <div className="relative w-full my-8  left-0 right-0 mx-auto">
       <input
               type="text"
@@ -63,14 +103,19 @@ const AddNewCategory = () => {
     <div className="">
     <label htmlFor="status"/>
       <div className="relative w-full my-8 left-0 right-0 mx-auto">
-      <input
-              type="text"
-                      id="status"
+      <select
+              
+                      id=""
                       name="status"
                       value={categoryData.status}
                       onChange={handleOnChange}
         className="block w-full py-2 px-20 border border-gray-300  focus:outline-none focus:border-purple-800   placeholder-transparent rounded-md"
-      />
+      >
+        <option value="#">N.A.</option>
+        <option value="Active">Active</option>
+          <option value="Inactive" >Inactive</option>
+
+      </select>
       <div className="absolute inset-x-0 top-[-10px] flex items-center ml-5 justify-left">
         <div className="bg-white px-2">Status</div>
       </div>

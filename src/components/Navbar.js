@@ -40,7 +40,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
     // });
 
     const fetchdata=await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/users/logout`,{
-      method:'POST',
+      method:'GET',
       headers:{
         'content-type':'application/json',
        
@@ -53,7 +53,7 @@ import { FaRegCircleUser } from "react-icons/fa6";
 
     const dataRes= await fetchdata.json();
     console.log(dataRes)
-if(dataRes.status==='Logged out!'){
+if(dataRes.status==='Success'){
   dispatch(logoutRedu(dataRes));
   toast.success(dataRes.status)
   setTimeout(()=>{

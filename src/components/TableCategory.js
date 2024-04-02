@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { FaSearch } from "react-icons/fa";
 import { Link,useNavigate } from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux';
 const TableCategory = () => {
 
     const columns=[
@@ -12,13 +13,13 @@ const TableCategory = () => {
         },
         {
             name:'Name',
-            selector:row=>row.name,
+            selector:row=>row.categoryName,
             sortable:true,
             cell: row => (
               <div
-                className={`text-black  py-1 rounded `}
+                className={`text-black  py-1   rounded `}
               >
-                {row.status}
+                {row.categoryName}
               </div>
             ),
         },
@@ -35,7 +36,7 @@ const TableCategory = () => {
             sortable:true,
             cell: row => (
                 <div
-                  className={`text-white px-2 py-1 rounded ${
+                  className={`text-white w-[70px] text-center py-1 rounded ${
                     row.status === 'Active' ? 'bg-green-500' : 'bg-red-500'
                   }`}
                 >
@@ -45,33 +46,36 @@ const TableCategory = () => {
         }
 
     ]
+    const allCategoryReducerRes = useSelector(state=>state.category.category)
+    // const tableData=[
+    //     {
+    //         id:1,
+    //         name:'sagar',
+    //         description:" Lorem hi this is me",
+    //         status:'Broken'
+    //     },
+    //     {
+    //       id:2,
+    //       name:'sagar tare',
+    //       description:" Lorem hi this is me",
+    //       status:'Broken'
+    //   },
+    //   {
+    //     id:3,
+    //     name:'sagar thy',
+    //     description:" Lorem hi this is me",
+    //     status:'Broken'
+    // },
+    // ]
 
-    const tableData=[
-        {
-            id:1,
-            name:'sagar',
-            description:" Lorem hi this is me",
-            status:'Broken'
-        },
-        {
-          id:2,
-          name:'sagar tare',
-          description:" Lorem hi this is me",
-          status:'Broken'
-      },
-      {
-        id:3,
-        name:'sagar thy',
-        description:" Lorem hi this is me",
-        status:'Broken'
-    },
-    ]
 
+    const tableData=allCategoryReducerRes
+    console.log(tableData)
     const [records,setRecords]= useState(tableData)
 
     const handleFilter =(e)=>{
         const newData = tableData.filter(row =>{
-            return row.name.includes(e.target.value)
+            return row.categoryName.includes(e.target.value)
         })
 
         setRecords(newData)

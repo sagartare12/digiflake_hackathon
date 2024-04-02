@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { FaSearch } from "react-icons/fa";
 import { Link,useNavigate } from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux';
 const Table = () => {
-
+  const allProductsReducerRes = useSelector(state=>state.products.product)
     const columns=[
         {
             name:'ID',
@@ -41,7 +42,7 @@ const Table = () => {
             sortable:true,
             cell: row => (
                 <div
-                  className={`text-white px-2 py-1 rounded ${
+                  className={`text-white w-[70px] text-center py-1 rounded ${
                     row.status === 'Active' ? 'bg-green-500' : 'bg-red-500'
                   }`}
                 >
@@ -52,35 +53,37 @@ const Table = () => {
 
     ]
 
-    const tableData=[
-        {
-            id:1,
-            name:'sagar',
-            packSize:12,
-            category:'Engg',
-            mrp:200,
-            image:"",
-            status:'Broken'
-        },
-        {
-            id:2,
-            name:'sagar2',
-            packSize:12,
-            category:'Engg',
-            mrp:200,
-            image:"",
-            status:'Broken'
-        },
-        {
-            id:3,
-            name:'tare',
-            packSize:12,
-            category:'Engg',
-            mrp:200,
-            image:"",
-            status:'Broken'
-        },
-    ]
+    const tableData=allProductsReducerRes
+
+    // const tableData=[
+    //     {
+    //         id:1,
+    //         name:'sagar',
+    //         packSize:12,
+    //         category:'Engg',
+    //         mrp:200,
+    //         image:"",
+    //         status:'Broken'
+    //     },
+    //     {
+    //         id:2,
+    //         name:'sagar2',
+    //         packSize:12,
+    //         category:'Engg',
+    //         mrp:200,
+    //         image:"",
+    //         status:'Broken'
+    //     },
+    //     {
+    //         id:3,
+    //         name:'tare',
+    //         packSize:12,
+    //         category:'Engg',
+    //         mrp:200,
+    //         image:"",
+    //         status:'Broken'
+    //     },
+    // ]
 
     const [records,setRecords]= useState(tableData)
 

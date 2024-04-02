@@ -1,13 +1,23 @@
 import React from 'react'
 import {useState} from 'react'
-const AddNewProduct = () => {
+import { addProductReducer} from '../store/slices/ProductSlice';
+import {Link,useNavigate} from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux';
+import {toast} from 'react-hot-toast'
 
+
+const AddNewProduct = () => {
+  const navigate  = useNavigate();
+
+  const dispatch = useDispatch();
     const [productData,setProductData] = useState({
+      
         name:"",
         category:"",
-        productImage:"",
-        price:"",
-        description:"",
+        image:"",
+        packSize:"",
+
+      mrp:"",
         status:""
       });
     const handleOnChange=(e)=>{
@@ -19,14 +29,45 @@ const AddNewProduct = () => {
           }
         }) 
     }
+
+
+
+    const handleSubmit=async(e)=>{
+      e.preventDefault();
+      console.log(productData)
+    
+      const {name,packSize,status,category,mrp,image} =productData;
+      if( !name || !packSize || !status ||!category|| !mrp ||!image ) return  toast.error("Please enter required fields")
+      const fetchdata=await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/dProduct/createDProduct`,{
+      method:'POST',
+      headers:{
+        'content-type':'application/json'
+      },
+      credentials: 'include', 
+      body:JSON.stringify(productData)
+    })
+    
+    const dataRes= await fetchdata.json();
+    console.log(dataRes)
+      
+     if(dataRes.status==='Success'){
+        dispatch(addProductReducer(dataRes));
+        toast.success("Product created successfully.")
+        setTimeout(()=>{
+          navigate('/products')
+        },1000);
+     }else toast.error(dataRes.message)
+    }
+
+
   return (
     <div className='w-full bg-white'>
         
 <h3 className='font-bold mt-6 ml-8 text-lg'>Add Product</h3>
-      <form className="w-full py-2 flex flex-col" onSubmit="#">
+      <form className="w-full py-2 flex flex-col" onSubmit={handleSubmit}>
         <div className="flex justify-between mx-6">
             <div className="">
-      <label htmlFor="email"/>
+      <label htmlFor="category"/>
       <div className="relative w-full my-8  left-0 right-0 mx-auto ">
       <input
               type="text"
@@ -44,13 +85,13 @@ const AddNewProduct = () => {
 
 
 <div className="">
-    <label htmlFor="productName"/>
+    <label htmlFor="name"/>
       <div className="relative w-full my-8  left-0 right-0 mx-auto">
       <input
               type="text"
-                      id="productName"
-                      name="productName"
-                      value={productData.productName}
+                      id="name"
+                      name="name"
+                      value={productData.name}
                       onChange={handleOnChange}
         className="block w-full py-2 px-20 border border-gray-300  focus:outline-none focus:border-purple-800  placeholder-transparent rounded-md"
       />
@@ -102,13 +143,13 @@ const AddNewProduct = () => {
 
 
 <div className="">
-    <label htmlFor="productImage"/>
+    <label htmlFor="image"/>
       <div className="relative w-full my-8  left-0 right-0 mx-auto">
       <input
               type="text"
-                      id="productImage"
-                      name="productImage"
-                      value={productData.productImage}
+                      id="image"
+                      name="image"
+                      value={productData.image}
                       onChange={handleOnChange}
         className="block w-full py-2 px-20 border border-gray-300  focus:outline-none focus:border-purple-800  placeholder-transparent rounded-md"
       />
@@ -119,10 +160,11 @@ const AddNewProduct = () => {
     </div>
 
     <div className="">
-    <label htmlFor="email"/>
+    <label htmlFor="status"/>
       <div className="relative w-full my-8 left-0 right-0 mx-auto">
      
        <select name="status" id=""  className="block w-[350px] py-2 px-20 border border-gray-300  focus:outline-none focus:border-purple-800   placeholder-transparent rounded-md" onChange={handleOnChange} value={productData.status}>
+          <option value="N.A.">N.A.</option>
           <option value="Active">Active</option>
           <option value="Inactive">Inactive</option>
         

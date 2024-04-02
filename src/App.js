@@ -6,6 +6,7 @@ import {Router,Route, Outlet} from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { allProductReducer} from './store/slices/ProductSlice'
+import { allCategoryReducer} from './store/slices/CategorySlice'
 import { useDispatch,useSelector } from 'react-redux';
 
 import Login from './pages/Login'
@@ -22,17 +23,39 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const allProductsReducerRes = useSelector(state=>state.products)
-     console.log(allProductsReducerRes)
+  const allProductsReducerRes = useSelector(state=>state.products.product)
+  const allCategoryReducerRes = useSelector(state=>state.category.category)
+    
+     console.log(allProductsReducerRes.length)
+     console.log(allCategoryReducerRes.length)
+  // useEffect(()=>{
+  //   (async()=>{
+  //     const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/products`);
+  //     const fetchRes=await fetchData.json();
+  //     dispatch(allProductReducer(fetchRes.allProducts))
+  //   })() 
+  // },[])
+
+//all dproducts
   useEffect(()=>{
     (async()=>{
-      const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/products`);
+      const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/dProduct`);
       const fetchRes=await fetchData.json();
-      dispatch(allProductReducer(fetchRes.allProducts))
+      console.log(fetchRes)
+      dispatch(allProductReducer(fetchRes.allDProduct))
     })() 
-  },[])
+  },[allProductsReducerRes.length])
 
+//all category
 
+useEffect(()=>{
+  (async()=>{
+    const fetchData= await fetch(`${process.env.REACT_APP_SERVER_DOMAIN}/category`);
+    const fetchRes=await fetchData.json();
+    console.log(fetchRes)
+    dispatch(allCategoryReducer(fetchRes.allCategory))
+  })() 
+},[allCategoryReducerRes.length])
     
   const user = useSelector((state)=>state.users.user)
   const isSignUp = useSelector((state)=>state.routers.allRouters.isSignup)

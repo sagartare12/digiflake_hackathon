@@ -11,47 +11,9 @@ import { TbTruckDelivery } from "react-icons/tb";
 const Home = () => {
 
   const allProductsReducer = useSelector(state=>state.products.product);
-  const homeProductCardList = allProductsReducer.slice(0,4) 
+  // const homeProductCardList = allProductsReducer.slice(0,4) 
   // console.log(homeProductCardList)
-  const vegetableProductList = allProductsReducer.filter((el)=> el.category === "Veg",[])
-  console.log(vegetableProductList)
 
-  const isLoadingHomeCard = new Array(4).fill(null)
-  const isLoadingVegCard = new Array(5).fill(null)
-  const isLoadingAllProducts = new Array(5).fill(null)
-  const slideProductRef = useRef();
-  const prevProduct=()=>{
-    slideProductRef.current.scrollLeft +=200;
-  }
-
-  const nextProduct=()=>{
-    slideProductRef.current.scrollLeftt +=200;
-  }
-
-  const rightScroll=()=>{
-    slideProductRef.current.scrollLeftt -=200;
-  }
-
-  const categoryList =[...new Set(allProductsReducer.map((el)=>el.category))]
- 
-  //filter product by given category
-
-  const [filterBy , setFilterBy]=useState("")
-  const [defaultFilter,setDefaultFilter]=useState([])
-console.log("defult filter"+defaultFilter)
-  const handleFilterProduct =(category)=>{
-    setFilterBy(category)
-  }
-  useEffect(()=>{
-    const filter =filterBy ? allProductsReducer.filter((el)=>el.category.toLowerCase() === filterBy.toLowerCase()) : allProductsReducer
-    console.log(filter)
-    setDefaultFilter(()=>{
-      return [
-        ...filter
-      ]
-    })
-
-  },[filterBy])
 
   //  console.log(Object.keys(allProductsReducer).slice(0,4))
 // console.log(allProductsReducer)
