@@ -7,7 +7,7 @@ const router =express.Router();
 router.post('/signup',authController.signUp);
 
 router.post('/login',authController.logIn);
-router.post('/logout',authController.logout)
+router.get('/logout',authController.logout)
 router.get('/',authController.protect,authController.getAllUsers)
 router.post('/cart/:id',authController.protect,cartController.createUserCart)
 router.get('/allcart',authController.protect,cartController.getAllCart)

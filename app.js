@@ -3,6 +3,8 @@ const app=express()
 const cookieParser = require("cookie-parser");
 const userRouter = require('./routes/user.routes.js');
 const productRouter = require('./routes/product.routes')
+const categoryRouter = require('./routes/category.routes')
+const dProductRouter = require('./routes/dProduct.routes')
 const AppError = require('./utils/appError')
 const globalErrorHandler = require('./controllers/error.controller')
 const cors = require("cors")
@@ -37,6 +39,8 @@ app.options('*', cors());
 
 app.use('/api/v1/users' , userRouter);
 app.use('/api/v1/products',productRouter)
+app.use('/api/v1/category',categoryRouter)
+app.use('/api/v1/dproduct',dProductRouter)
 // app.post("/signup",(req,res)=>{
 //     console.log(req.body);
 // })
